@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">FriendsPlus</string>
+    <string name="main_font">sans-serif</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up_msg">Don\'t have an account? Sign Up</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_msg">Already have an account? Login</string>
+    <string name="forgotten_password">Forgotten password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
+    <string name="fui_accessibility_logo" translation_description="Content description for app logo">App logo</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_email">Sign in with e-mail</string>
+
+    <string name="facebook_app_id">329106764489375</string>
+    <string name="fb_login_protocol_scheme">fb329106764489375</string>
+
+
+</resources>

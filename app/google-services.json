@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "735358910342",
+    "firebase_url": "https://friendsplus-736bd.firebaseio.com",
+    "project_id": "friendsplus-736bd",
+    "storage_bucket": "friendsplus-736bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735358910342:android:33b0a5ed858a3d6e",
+        "android_client_info": {
+          "package_name": "aut.bme.hu.friendsplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735358910342-1rk15a75qli2556c41krsb77f7evpm7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "aut.bme.hu.friendsplus",
+            "certificate_hash": "0ce59316db20017c7ccc271c6476a8c11e39c133"
+          }
+        },
+        {
+          "client_id": "735358910342-fqrep76ejris8vqq3jhvb0mucr68rfvm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1erPMxRNCmrOKyzcPv_21XKJVBx05m-o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735358910342-fqrep76ejris8vqq3jhvb0mucr68rfvm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

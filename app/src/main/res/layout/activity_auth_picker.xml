@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_people_outline_black_48dp"
+            android:layout_margin="35dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/btn_holder"
+            android:layout_marginTop="15dp"
+            style="@style/FirebaseUI.AuthMethodPicker.ButtonHolder">
+
+            <Button
+                android:id="@+id/email_button"
+                style="@style/FirebaseUI.Button.AccountChooser.EmailButton"
+                android:text="@string/sign_in_with_email"/>
+
+            <Button
+                android:id="@+id/google_button"
+                style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
+                android:text="@string/sign_in_with_google"/>
+
+            <Button
+            android:id="@+id/facebook_button"
+            style="@style/FirebaseUI.Button.AccountChooser.FacebookButton"
+            android:text="@string/sign_in_with_facebook" />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
+
+
+</LinearLayout>
+
