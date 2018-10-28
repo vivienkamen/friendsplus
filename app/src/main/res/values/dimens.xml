@@ -13,4 +13,10 @@
     <dimen name="fui_button_inset_bottom">3dp</dimen>
     <dimen name="fui_button_inset_left">1dp</dimen>
     <dimen name="fui_button_inset_right">2dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_padding_horizontal">16dp</dimen>
+    <dimen name="padd_10">10dp</dimen>
+    <dimen name="ic_delete">30dp</dimen>
+    <dimen name="thumbnail">90dp</dimen>
 </resources>

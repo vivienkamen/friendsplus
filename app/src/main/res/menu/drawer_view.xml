@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/account"
+            android:title="@string/account"/>
+
+        <item
+            android:id="@+id/meetings"
+            android:title="@string/meetings"/>
+
+        <item
+            android:id="@+id/friends"
+            android:title="@string/friends"/>
+
+        <item
+            android:id="@+id/tracking"
+            android:title="@string/tracking"/>
+
+        <item
+            android:id="@+id/signOut"
+            android:title="@string/sign_out" />
+
+    </group>
+
+</menu>

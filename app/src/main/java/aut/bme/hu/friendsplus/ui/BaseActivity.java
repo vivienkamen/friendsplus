@@ -1,10 +1,17 @@
 package aut.bme.hu.friendsplus.ui;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import aut.bme.hu.friendsplus.R;
+import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -34,4 +41,6 @@ public class BaseActivity extends AppCompatActivity {
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    public void signOut() {}
 }
