@@ -5,7 +5,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.DatabaseInteractor;
+import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
 
@@ -13,11 +13,11 @@ public class FacebookLoginPresenter extends Presenter<FacebookLoginScreen> imple
 
     private static final String TAG = "FacebookLoginPresenter";
     AuthInteractor authInteractor;
-    DatabaseInteractor databaseInteractor;
+    UserDatabaseInteractor userDatabaseInteractor;
 
     public FacebookLoginPresenter() {
         authInteractor = new AuthInteractor(this);
-        databaseInteractor = new DatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 
     @Override
@@ -32,8 +32,9 @@ public class FacebookLoginPresenter extends Presenter<FacebookLoginScreen> imple
 
     @Override
     public void onSuccess(String message) {
-        databaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
+        userDatabaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
         screen.showSuccessfulLogin();
+        screen.checkPermission();
         screen.navigateToMain();
     }
 

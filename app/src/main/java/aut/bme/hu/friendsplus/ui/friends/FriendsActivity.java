@@ -1,11 +1,14 @@
-package aut.bme.hu.friendsplus.ui.main;
+package aut.bme.hu.friendsplus.ui.friends;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,56 +17,57 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import aut.bme.hu.friendsplus.model.Meeting;
-import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.R;
+import aut.bme.hu.friendsplus.model.Meeting;
+import aut.bme.hu.friendsplus.model.User;
+import aut.bme.hu.friendsplus.ui.BaseActivity;
+import aut.bme.hu.friendsplus.ui.addFriend.NewFriendFragment;
 import aut.bme.hu.friendsplus.ui.addMeeting.NewMeetingFragment;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
 import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
 import aut.bme.hu.friendsplus.ui.helpers.RecyclerItemTouchHelper;
 import aut.bme.hu.friendsplus.ui.listeners.ItemClickListener;
-import aut.bme.hu.friendsplus.ui.listeners.NewMeetingListener;
+import aut.bme.hu.friendsplus.ui.listeners.NewFriendListener;
 import aut.bme.hu.friendsplus.ui.listeners.RecyclerItemTouchHelperListener;
-import aut.bme.hu.friendsplus.ui.meetingDetails.MeetingDetailActivity;
+import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
+import aut.bme.hu.friendsplus.ui.main.MeetingsAdapter;
 
-public class MeetingsActivity extends BaseActivity implements NewMeetingListener, ItemClickListener,
+public class FriendsActivity extends BaseActivity implements NewFriendListener,
         RecyclerItemTouchHelperListener {
 
-    public static final String TAG = "MeetingsActivity";
+    public static final String TAG = "FriendsActivity";
 
     private RecyclerView recyclerView;
-    private MeetingsAdapter adapter;
+    private FriendsAdapter adapter;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private NavigationDrawer navigationDrawer;
-    private MeetingsPresenter presenter;
-
+    private FriendsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meetings);
+        setContentView(R.layout.activity_friends);
 
-        setTitle("Meetings");
+        setTitle("Friends");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
 
-        presenter = new MeetingsPresenter();
+        presenter = new FriendsPresenter();
 
         initRecyclerView();
 
         initItemTouchHelper();
 
         initDrawerLayout();
-
     }
 
     private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.meetingsRecyclerView);
-        adapter = new MeetingsAdapter(presenter, this);
+        recyclerView = (RecyclerView) findViewById(R.id.friendsRecyclerView);
+        adapter = new FriendsAdapter(presenter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -78,12 +82,10 @@ public class MeetingsActivity extends BaseActivity implements NewMeetingListener
     private void initDrawerLayout() {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        navigationDrawer = new NavigationDrawer(drawerLayout, navigationView, MeetingsActivity.this);
+        navigationDrawer = new NavigationDrawer(drawerLayout, navigationView, FriendsActivity.this);
         navigationDrawer.initNavigationDrawer();
-        navigationView.getMenu().getItem(1).setChecked(true);
-
+        navigationView.getMenu().getItem(2).setChecked(true);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,7 +98,7 @@ public class MeetingsActivity extends BaseActivity implements NewMeetingListener
         switch (item.getItemId()) {
 
             case  R.id.AddItem:
-                new NewMeetingFragment().show(getSupportFragmentManager(), NewMeetingFragment.TAG);
+                new NewFriendFragment().show(getSupportFragmentManager(), NewFriendFragment.TAG);
                 return true;
 
             case android.R.id.home:
@@ -106,39 +108,31 @@ public class MeetingsActivity extends BaseActivity implements NewMeetingListener
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
-    }
-
-    @Override
-    public void onItemClick(Meeting meeting) {
-        Intent intent = new Intent(MeetingsActivity.this, MeetingDetailActivity.class);
-        intent.putExtra("Meeting", meeting);
-        startActivity(intent);
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if(viewHolder instanceof MeetingsAdapter.MeetingRowViewHolder) {
-            final int deletedIndex = viewHolder.getAdapterPosition();
-            final Meeting deletedItem = presenter.getMeeting(deletedIndex);
-            final String deletedKey = presenter.removeMeeting(deletedIndex);
 
-            showSnackbar( "Meeting is removed!","UNDO", new View.OnClickListener() {
+        if(viewHolder instanceof FriendsAdapter.FriendRowViewHolder) {
+            final int deletedIndex = viewHolder.getAdapterPosition();
+            final String deletedUid = presenter.removeFriend(deletedIndex);
+
+            showSnackbar("Friend is removed!", "UNDO", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    presenter.restoreMeeting(deletedItem, deletedKey);
+                    presenter.restoreFriend(deletedUid);
                     return;
                 }
             });
+
         }
     }
 
     @Override
     public void signOut() {
         presenter.signOut();
-        Intent intent = new Intent(MeetingsActivity.this, AuthPickerActivity.class);
+        Intent intent = new Intent(FriendsActivity.this, AuthPickerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -151,7 +145,7 @@ public class MeetingsActivity extends BaseActivity implements NewMeetingListener
     }
 
     @Override
-    public void onMeetingCreated(Meeting meeting) {
-        presenter.addMeeting(meeting);
+    public void onFriendCreated(User user) {
+        presenter.addFriend(user.uid);
     }
 }

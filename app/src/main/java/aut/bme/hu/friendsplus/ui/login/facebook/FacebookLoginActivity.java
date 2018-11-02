@@ -1,7 +1,11 @@
 package aut.bme.hu.friendsplus.ui.login.facebook;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,14 +16,17 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import aut.bme.hu.friendsplus.BuildConfig;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
+import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
 import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
 
 public class FacebookLoginActivity extends BaseActivity implements FacebookLoginScreen{
 
     private static final String TAG = "FacebookLoginActivity";
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     FacebookLoginPresenter presenter;
 
     ProgressBar progressBar;
@@ -90,6 +97,7 @@ public class FacebookLoginActivity extends BaseActivity implements FacebookLogin
         progressBar.setVisibility(View.GONE);
     }
 
+
     private void login() {
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.login_button);
@@ -112,6 +120,44 @@ public class FacebookLoginActivity extends BaseActivity implements FacebookLogin
             }
         });
         loginButton.performClick();
+    }
+
+    @Override
+    public void checkPermission() {
+        if(!PermissionChecker.checkPermissions(this)) {
+            PermissionChecker.requestPermissions(this);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                Log.i(TAG, "User interaction was cancelled.");
+
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+
+                showSnackbar(getString(R.string.permission_denied_explanation),
+                        getString(R.string.settings), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        }
     }
 
 }

@@ -1,7 +1,11 @@
 package aut.bme.hu.friendsplus.ui.login.google;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,15 +17,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import aut.bme.hu.friendsplus.BuildConfig;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
+import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
 import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
 
 public class GoogleLoginActivity extends BaseActivity implements GoogleLoginScreen {
 
     private static final int RC_SIGN_IN = 500;
     private static final String TAG = "GoogleLoginActivity";
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+
     GoogleSignInClient googleSignInClient;
     GoogleLoginPresenter presenter;
 
@@ -77,6 +85,13 @@ public class GoogleLoginActivity extends BaseActivity implements GoogleLoginScre
     }
 
     @Override
+    public void checkPermission() {
+        if(!PermissionChecker.checkPermissions(this)) {
+            PermissionChecker.requestPermissions(this);
+        }
+    }
+
+    @Override
     public void navigateBack() {
         Intent intent = new Intent(this, AuthPickerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -104,6 +119,37 @@ public class GoogleLoginActivity extends BaseActivity implements GoogleLoginScre
 
                 Log.w(TAG, "Google sign in failed", e);
                 navigateBack();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                Log.i(TAG, "User interaction was cancelled.");
+
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+
+                showSnackbar(getString(R.string.permission_denied_explanation),
+                        getString(R.string.settings), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
             }
         }
     }

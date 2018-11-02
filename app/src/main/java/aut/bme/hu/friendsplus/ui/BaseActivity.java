@@ -1,6 +1,7 @@
 package aut.bme.hu.friendsplus.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -29,13 +30,14 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void showSnackbar(String message, final int actionStringId,
+    public void showSnackbar(String message, String actionString,
                                 View.OnClickListener listener) {
         Snackbar.make(
                 snackbar,
                 message,
                 Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(actionStringId), listener).show();
+                .setAction(actionString, listener).show();
+
     }
 
     public void showToast(String message) {

@@ -3,19 +3,18 @@ package aut.bme.hu.friendsplus.ui.login.google;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.DatabaseInteractor;
+import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
-import aut.bme.hu.friendsplus.ui.login.LoginScreen;
 
 public class GoogleLoginPresenter extends Presenter<GoogleLoginScreen> implements AuthListener {
 
     AuthInteractor authInteractor;
-    DatabaseInteractor databaseInteractor;
+    UserDatabaseInteractor userDatabaseInteractor;
 
     public GoogleLoginPresenter() {
         authInteractor = new AuthInteractor(this);
-        databaseInteractor = new DatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 
     @Override
@@ -30,8 +29,9 @@ public class GoogleLoginPresenter extends Presenter<GoogleLoginScreen> implement
 
     @Override
     public void onSuccess(String message) {
-        databaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
+        userDatabaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
         screen.showSuccessfulLogin();
+        screen.checkPermission();
         screen.navigateToMain();
     }
 

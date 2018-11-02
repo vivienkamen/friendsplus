@@ -1,23 +1,18 @@
 package aut.bme.hu.friendsplus.ui.authpicker;
 
-import com.facebook.AccessToken;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FacebookAuthProvider;
-
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.DatabaseInteractor;
+import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
 
 public class AuthPickerPresenter extends Presenter<AuthPickerScreen> implements AuthListener {
 
     AuthInteractor authInteractor;
-    DatabaseInteractor databaseInteractor;
+    UserDatabaseInteractor userDatabaseInteractor;
 
     public AuthPickerPresenter() {
         authInteractor = new AuthInteractor(this);
-        databaseInteractor = new DatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 
     @Override
@@ -46,7 +41,7 @@ public class AuthPickerPresenter extends Presenter<AuthPickerScreen> implements 
 
     @Override
     public void onSuccess(String message) {
-        databaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
+        userDatabaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
         screen.showSuccessfulLogin();
         screen.navigateToMain();
     }

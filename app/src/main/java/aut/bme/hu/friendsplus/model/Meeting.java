@@ -22,8 +22,8 @@ public class Meeting implements Parcelable {
     public String key;
     public int position;
     public boolean tracked = false;
-    public boolean finished;
-    public HashMap<String, String> trackedFriends = new HashMap<>();
+    private boolean finished;
+    private HashMap<String, String> trackedFriends = new HashMap<>();
 
     public Meeting() {}
 

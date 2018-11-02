@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dip">
+
+
+
+    <EditText
+        android:id="@+id/MeetingNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:fontFamily="@string/main_font"
+        android:paddingBottom="15dp"
+        android:textColorHint="@color/colorAccent"/>
+
+
+    <TextView
+        android:id="@+id/PlacePickerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_a_place"
+        android:textSize="18dp"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_button_solid"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/DatePickerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/set_date"
+            android:background="@drawable/rounded_button_transparent"
+            android:padding="10dp"
+            android:textSize="18dp"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/TimePickerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/set_time"
+            android:background="@drawable/rounded_button_transparent"
+            android:padding="10dp"
+            android:textSize="18dp"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

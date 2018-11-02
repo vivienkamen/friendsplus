@@ -37,7 +37,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         if (viewHolder != null) {
             View foregroundView;
             if(flag == MEETING_FLAG) {
-                foregroundView = ((MeetingsAdapter.MeetingsViewHolder) viewHolder).viewForeground;
+                foregroundView = ((MeetingsAdapter.MeetingRowViewHolder) viewHolder).viewForeground;
                 getDefaultUIUtil().onSelected(foregroundView);
             }
             /*if(flag == FRIENDS_FLAG) {
@@ -56,7 +56,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         View foregroundView;
         if(flag == MEETING_FLAG) {
-            foregroundView = ((MeetingsAdapter.MeetingsViewHolder) viewHolder).viewForeground;
+            foregroundView = ((MeetingsAdapter.MeetingRowViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                     actionState, isCurrentlyActive);
         }
@@ -72,7 +72,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         View foregroundView;
         if(flag == MEETING_FLAG) {
-            foregroundView = ((MeetingsAdapter.MeetingsViewHolder) viewHolder).viewForeground;
+            foregroundView = ((MeetingsAdapter.MeetingRowViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().clearView(foregroundView);
         }
         /*if(flag == FRIENDS_FLAG) {
@@ -86,7 +86,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         View foregroundView;
         if(flag == MEETING_FLAG) {
-            foregroundView = ((MeetingsAdapter.MeetingsViewHolder) viewHolder).viewForeground;
+            foregroundView = ((MeetingsAdapter.MeetingRowViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                     actionState, isCurrentlyActive);
         }

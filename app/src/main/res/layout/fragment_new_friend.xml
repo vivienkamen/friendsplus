@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dip">
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:fontFamily="@string/main_font"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="15dp"
+        android:textColorHint="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:background="@drawable/rounded_button_solid"
+        android:layout_marginVertical="15dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingVertical="8dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/accountInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_frame">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/accountImage"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="20dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:src="@drawable/account3" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/main_font"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginVertical="10dp"
+            android:gravity="center_vertical"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -38,6 +38,7 @@ public class EmailLoginPresenter extends Presenter<LoginScreen> implements AuthL
     @Override
     public void onSuccess(String message) {
         screen.showSuccessfulLogin();
+        screen.checkPermission();
         screen.navigateToMain();
     }
 

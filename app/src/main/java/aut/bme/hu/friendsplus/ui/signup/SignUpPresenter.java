@@ -1,20 +1,18 @@
 package aut.bme.hu.friendsplus.ui.signup;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.DatabaseInteractor;
+import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
 
 public class SignUpPresenter extends Presenter<SignUpScreen> implements AuthListener {
 
     AuthInteractor authInteractor;
-    DatabaseInteractor databaseInteractor;
+    UserDatabaseInteractor userDatabaseInteractor;
 
     public SignUpPresenter() {
         authInteractor = new AuthInteractor(this);
-        databaseInteractor = new DatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 
     @Override
@@ -32,7 +30,7 @@ public class SignUpPresenter extends Presenter<SignUpScreen> implements AuthList
     }
 
     public void registerNewUser(String uid) {
-        databaseInteractor.writeNewUser(uid, screen.getUserName(), screen.getEmail());
+        userDatabaseInteractor.writeNewUser(uid, screen.getUserName(), screen.getEmail());
     }
 
     @Override
