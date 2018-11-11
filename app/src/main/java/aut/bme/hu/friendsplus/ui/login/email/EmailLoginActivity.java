@@ -105,8 +105,8 @@ public class EmailLoginActivity extends BaseActivity implements LoginScreen, Vie
 
     @Override
     public void checkPermission() {
-        if(!PermissionChecker.checkPermissions(this)) {
-            PermissionChecker.requestPermissions(this);
+        if(!PermissionChecker.checkLocationPermission(this)) {
+            PermissionChecker.requestLocationPermission(this);
         }
     }
 

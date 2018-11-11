@@ -3,6 +3,7 @@ package aut.bme.hu.friendsplus.interactor.auth;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
+import aut.bme.hu.friendsplus.ui.listeners.FirebaseUserListener;
 
 
 public class AuthInteractor {
@@ -22,10 +24,12 @@ public class AuthInteractor {
     private static final String TAG ="AuthInteractor";
     private FirebaseAuth mAuth;
     private AuthListener authListener;
+    private FirebaseUserListener firebaseUserListener;
 
-    public AuthInteractor(AuthListener authListener) {
+    public AuthInteractor(AuthListener authListener, FirebaseUserListener firebaseUserListener) {
         mAuth = FirebaseAuth.getInstance();
         this.authListener = authListener;
+        this.firebaseUserListener = firebaseUserListener;
     }
 
     public boolean isLoggedIn() {
@@ -131,6 +135,23 @@ public class AuthInteractor {
 
     public FirebaseUser getCurrentUser() {
         return mAuth.getCurrentUser();
+    }
+
+    public void updateFirebaseUser(String email) {
+        FirebaseUser firebaseUser = getCurrentUser();
+
+        if(firebaseUser != null) {
+            firebaseUser.updateEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User email address updated.");
+                                firebaseUserListener.onUserUpdated();
+                            }
+                        }
+                    });
+        }
     }
 
 

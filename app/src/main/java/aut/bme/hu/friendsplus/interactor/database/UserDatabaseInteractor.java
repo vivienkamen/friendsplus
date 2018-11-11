@@ -14,7 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
@@ -78,5 +80,14 @@ public class UserDatabaseInteractor {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    public void updateUserDatabase(User user) {
+        Map<String, Object> userValues = user.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/users/" + user.uid, userValues);
+
+        mDatabase.updateChildren(childUpdates);
     }
 }

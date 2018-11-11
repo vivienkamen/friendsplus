@@ -45,6 +45,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="change_profile_picture">Change profile picture</string>
 
 
 </resources>
