@@ -12,7 +12,7 @@ public class EmailLoginPresenter extends Presenter<LoginScreen> implements AuthL
     AuthInteractor authInteractor;
 
     public EmailLoginPresenter() {
-        authInteractor = new AuthInteractor(this);
+        authInteractor = new AuthInteractor(this, null);
     }
 
     @Override

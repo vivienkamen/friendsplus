@@ -13,7 +13,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
@@ -132,20 +134,24 @@ public class AccountActivity extends BaseActivity implements AccountScreen {
                 }
         );
 
-        nameEditText.setOnClickListener(new View.OnClickListener() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void onClick(View view) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 edited = true;
                 updateButtonState();
             }
-        });
-        emailEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edited = true;
-                updateButtonState();
-            }
-        });
+        };
+
+        nameEditText.addTextChangedListener(textWatcher);
+        emailEditText.addTextChangedListener(textWatcher);
 
         saveButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -173,8 +179,6 @@ public class AccountActivity extends BaseActivity implements AccountScreen {
                     }
                 }
         );
-
-        updateUI();
     }
 
     @Override

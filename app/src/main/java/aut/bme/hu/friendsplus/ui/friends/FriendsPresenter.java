@@ -27,7 +27,7 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
     public FriendsPresenter() {
         friendsDatabaseInteractor = new FriendsDatabaseInteractor(this);
         userDatabaseInteractor = new UserDatabaseInteractor(this);
-        authInteractor = new AuthInteractor(null);
+        authInteractor = new AuthInteractor(null, null);
 
         friends = new ArrayList<>();
 

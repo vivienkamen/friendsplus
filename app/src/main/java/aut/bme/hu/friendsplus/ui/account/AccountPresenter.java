@@ -41,6 +41,7 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
             storageInteractor.saveImage(authInteractor.getCurrentUser().getUid(), uri);
         } else {
             screen.setUpdatedUser();
+            screen.updateCurrentUser();
             authInteractor.updateFirebaseUser(screen.getUpdatedUser().email);
             userDatabaseInteractor.updateUserDatabase(screen.getUpdatedUser());
         }
@@ -56,12 +57,11 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
     public void onUserFound(User user) {
         screen.setCurrentUser(user);
         screen.initUI();
+        screen.updateUI();
     }
 
     @Override
-    public void onUserNotFound() {
-
-    }
+    public void onUserNotFound() {}
 
     @Override
     public void onImageSaved(String imageUri) {

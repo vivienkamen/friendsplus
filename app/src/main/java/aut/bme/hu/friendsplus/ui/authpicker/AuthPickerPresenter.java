@@ -11,7 +11,7 @@ public class AuthPickerPresenter extends Presenter<AuthPickerScreen> implements 
     UserDatabaseInteractor userDatabaseInteractor;
 
     public AuthPickerPresenter() {
-        authInteractor = new AuthInteractor(this);
+        authInteractor = new AuthInteractor(this, null);
         userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 

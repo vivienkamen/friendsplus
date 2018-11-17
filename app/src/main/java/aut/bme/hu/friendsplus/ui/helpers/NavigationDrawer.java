@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
+import aut.bme.hu.friendsplus.ui.account.AccountActivity;
 import aut.bme.hu.friendsplus.ui.friends.FriendsActivity;
 import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
 
@@ -36,12 +37,11 @@ public class NavigationDrawer {
 
                         switch (menuItem.getItemId()) {
                             case R.id.account:
-                                /*Intent intentAccount = new Intent(activity, AccountActivity.class);
+                                Intent intentAccount = new Intent(activity, AccountActivity.class);
                                 intentAccount.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                activity.startActivity(intentAccount);*/
+                                activity.startActivity(intentAccount);
                                 break;
                             case R.id.meetings:
-                                //TODO: single top flag ?
                                 Intent intentMeetings = new Intent(activity, MeetingsActivity.class);
                                 intentMeetings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 activity.startActivity(intentMeetings);

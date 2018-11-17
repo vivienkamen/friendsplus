@@ -13,7 +13,7 @@ public class GoogleLoginPresenter extends Presenter<GoogleLoginScreen> implement
     UserDatabaseInteractor userDatabaseInteractor;
 
     public GoogleLoginPresenter() {
-        authInteractor = new AuthInteractor(this);
+        authInteractor = new AuthInteractor(this, null);
         userDatabaseInteractor = new UserDatabaseInteractor(null);
     }
 

@@ -8,7 +8,7 @@ public class NewMeetingPresenter extends Presenter<NewMeetingScreen> {
     private AuthInteractor authInteractor;
 
     public NewMeetingPresenter() {
-        authInteractor = new AuthInteractor(null);
+        authInteractor = new AuthInteractor(null, null);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
 
         meetingsDatabaseInteractor = new MeetingsDatabaseInteractor(this);
         userDatabaseInteractor = new UserDatabaseInteractor(this);
-        authInteractor = new AuthInteractor(null);
+        authInteractor = new AuthInteractor(null, null);
 
         meetings = new ArrayList<>();
         keys = new ArrayList<>();
