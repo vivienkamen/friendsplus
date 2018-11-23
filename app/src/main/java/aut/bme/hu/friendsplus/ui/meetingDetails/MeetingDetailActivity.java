@@ -163,7 +163,6 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO: push notification ha még nem kezdte el de a többiek igen
                         Intent intent = new Intent(MeetingDetailActivity.this, TrackingActivity.class);
                         startActivity(intent);
                     }
