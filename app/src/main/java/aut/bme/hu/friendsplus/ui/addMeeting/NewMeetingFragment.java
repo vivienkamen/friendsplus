@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,24 +41,19 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
     public static final String TAG = "NewMeetingFragment";
     private static final int PLACE_PICKER_REQUEST = 1;
 
+    private NewMeetingPresenter presenter;
     private NewMeetingListener listener;
+    private boolean timeSet = false;
 
     private EditText nameEditText;
     private TextView timePickerTextView;
     private TextView datePickerTextView;
     private TextView placePickerTextView;
 
-    private Meeting meeting;
-    private Calendar meetingDate;
-    private NewMeetingPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        meeting = new Meeting();
-        meetingDate = Calendar.getInstance();
-        meetingDate.clear();
 
         presenter = new NewMeetingPresenter();
 
@@ -88,7 +84,7 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         if (isValid()) {
-                            listener.onMeetingCreated(getMeeting());
+                            listener.onMeetingCreated(presenter.getNewMeeting());
                         }
                     }
                 })
@@ -102,7 +98,12 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
         timePickerTextView = (TextView) contentView.findViewById(R.id.TimePickerTextView);
         timePickerTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                PickerDialogs.showTimePickerDialog(getActivity(),NewMeetingFragment.this);
+                if(presenter.isDateSet()) {
+                    PickerDialogs.showTimePickerDialog(getActivity(),NewMeetingFragment.this, presenter.getMeetingDate());
+                } else {
+                    timePickerTextView.setError("Set date first!");
+                }
+
             }
         });
         datePickerTextView = (TextView) contentView.findViewById(R.id.DatePickerTextView);
@@ -122,29 +123,38 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
         return contentView;
     }
 
-    @Override
     public boolean isValid() {
-        return nameEditText.getText().length() > 0;
+        if(TextUtils.isEmpty(nameEditText.getText()))
+            return false;
+        if(!presenter.isDateSet())
+            return false;
+        if(!timeSet)
+            return false;
+        return true;
+
     }
 
     @Override
     public void onTimeSet(int hour, int minute) {
 
-        timePickerTextView.setText(String.valueOf(hour) + " : " + String.valueOf(minute));
-
-        meetingDate.set(Calendar.HOUR_OF_DAY, hour);
-        meetingDate.set(Calendar.MINUTE, minute);
+        presenter.setTime(hour,minute);
     }
 
     @Override
     public void onDateSet(int year, int monthOfYear, int dayOfMonth) {
 
-        String date = String.valueOf(year) +"-"+String.valueOf(monthOfYear + 1)
-                +"-"+String.valueOf(dayOfMonth);
+        presenter.setDate(year, monthOfYear, dayOfMonth);
+    }
 
-        datePickerTextView.setText(date);
+    @Override
+    public void onInvalidDate() {
+        timePickerTextView.setError(null);
+        datePickerTextView.setError("Pick a valid date!");
+    }
 
-        meetingDate.set(year, monthOfYear, dayOfMonth);
+    @Override
+    public void onInvalidTime() {
+        timePickerTextView.setError("Pick a valid time!");
     }
 
     @Override
@@ -156,7 +166,7 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
                 Place place = PlacePicker.getPlace(getActivity(), data);
                 MyPlace myPlace = new MyPlace(place.getId(), place.getAddress(), place.getName(),
                         place.getLatLng().latitude, place.getLatLng().longitude);
-                meeting.place = myPlace;
+                presenter.setPlace(myPlace);
 
                 final CharSequence name = place.getName();
                 final String placeId = place.getId();
@@ -174,16 +184,23 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
     }
 
     @Override
-    public Meeting getMeeting() {
-
-        meeting.name = nameEditText.getText().toString();
-
-        meeting.uid = presenter.getUID();
-
-        meeting.meetingDate = meetingDate.getTimeInMillis();
-
-        meeting.creationTime = System.currentTimeMillis();
-
-        return meeting;
+    public String getName() {
+        return nameEditText.getText().toString();
     }
+
+    @Override
+    public void showValidDate(String date) {
+        datePickerTextView.setError(null);
+        timePickerTextView.setError(null);
+        datePickerTextView.setText(date);
+    }
+
+
+    @Override
+    public void showValidTime(String time) {
+        timeSet = true;
+        timePickerTextView.setError(null);
+        timePickerTextView.setText(time);
+    }
+
 }

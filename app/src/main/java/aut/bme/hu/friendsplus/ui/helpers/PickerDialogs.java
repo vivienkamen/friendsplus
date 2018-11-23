@@ -25,7 +25,7 @@ public class PickerDialogs {
 
     private static final int PLACE_PICKER_REQUEST = 1;
 
-    public static void showTimePickerDialog(FragmentActivity activity, final PickerDialogListener listener) {
+    public static void showTimePickerDialog(final FragmentActivity activity, final PickerDialogListener listener, final Calendar meetingDate) {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -33,8 +33,12 @@ public class PickerDialogs {
         TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hh, int mm) {
-
-                listener.onTimeSet(hh, mm);
+                if(PickerDialogs.validateTime(hh, mm, meetingDate)) {
+                    listener.onTimeSet(hh, mm);
+                } else {
+                    listener.onInvalidTime();
+                    return;
+                }
 
             }
         }, hour, minute, DateFormat.is24HourFormat(activity));
@@ -50,8 +54,11 @@ public class PickerDialogs {
         DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                listener.onDateSet(year, monthOfYear, dayOfMonth);
+                if(PickerDialogs.validateDate(year,monthOfYear,dayOfMonth)) {
+                    listener.onDateSet(year, monthOfYear, dayOfMonth);
+                } else {
+                    listener.onInvalidDate();
+                }
 
             }
         }, yy, mm, dd);
@@ -78,5 +85,50 @@ public class PickerDialogs {
         }
 
         return null;
+    }
+
+    public static boolean validateDate(int year, int monthOfYear, int dayOfMonth) {
+
+        Calendar c = Calendar.getInstance();
+        int yy = c.get(Calendar.YEAR);
+        int mm = c.get(Calendar.MONTH);
+        int dd = c.get(Calendar.DAY_OF_MONTH);
+        if(year < yy) {
+            return false;
+        }
+        if(monthOfYear < mm) {
+            return false;
+        }
+        if(dayOfMonth < dd) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validateTime(int hour, int minute, Calendar meetingDate) {
+        Calendar c = Calendar.getInstance();
+        int hh = c.get(Calendar.HOUR_OF_DAY);
+        int mm = c.get(Calendar.MINUTE);
+
+        if(dateEquals(c, meetingDate)) {
+            if(hour < hh) {
+                return false;
+            }
+            if(minute <= mm) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public static boolean dateEquals(Calendar c, Calendar meetingDate) {
+        if(c.get(Calendar.YEAR) == meetingDate.get(Calendar.YEAR) &&
+                c.get(Calendar.MONTH) == meetingDate.get(Calendar.MONTH) &&
+                c.get(Calendar.DAY_OF_MONTH) == meetingDate.get(Calendar.DAY_OF_MONTH)) {
+            return true;
+        }
+        return false;
     }
 }

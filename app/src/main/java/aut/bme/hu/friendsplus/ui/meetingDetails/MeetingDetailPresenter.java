@@ -80,7 +80,7 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     @Override
     public void onUserFound(User user) {
         meetingCreator = user.username;
-        screen.setAddedByTextView(meetingCreator);
+        screen.setAddedByTextView(" " + meetingCreator);
     }
 
     @Override
@@ -135,6 +135,14 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
 
     public Meeting getMeeting() {
         return meeting;
+    }
+
+    public void setEditedMeeting(Meeting meeting) {
+        this.meeting = meeting;
+        screen.refreshUI(meeting);
+
+        updateMeetingsDatabase();
+
     }
 
     @Override

@@ -37,9 +37,11 @@ import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
 import aut.bme.hu.friendsplus.ui.editMeeting.EditMeetingFragment;
 import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
 import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
+import aut.bme.hu.friendsplus.ui.listeners.EditMeetingListener;
 import aut.bme.hu.friendsplus.ui.tracking.TrackingActivity;
 
-public class MeetingDetailActivity extends BaseActivity implements MeetingDetailScreen, OnMapReadyCallback {
+public class MeetingDetailActivity extends BaseActivity implements MeetingDetailScreen, OnMapReadyCallback,
+        EditMeetingListener {
 
     private static final String TAG = "MeetingDetailActivity";
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
@@ -197,8 +199,8 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
 
             case R.id.editMeeting:
                 EditMeetingFragment editMeetingFragment = new EditMeetingFragment();
-                //editMeetingFragment.setMeeting(presenter.getMeeting());
-                //editMeetingFragment.show(getSupportFragmentManager(), EditMeetingFragment.TAG);
+                editMeetingFragment.setMeeting(presenter.getMeeting());
+                editMeetingFragment.show(getSupportFragmentManager(), EditMeetingFragment.TAG);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -274,4 +276,8 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
         }
     }
 
+    @Override
+    public void onMeetingEdited(Meeting meeting) {
+        presenter.setEditedMeeting(meeting);
+    }
 }
