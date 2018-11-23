@@ -68,6 +68,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
         TextView placeTextView;
         TextView dateTextView;
         TextView trackingTextView;
+        TextView expiredTextView;
+        TextView finishedTextView;
         ImageView imageView;
         Context context;
         public RelativeLayout viewBackground, viewForeground;
@@ -86,6 +88,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
             placeTextView = (TextView) itemView.findViewById(R.id.textViewPlace);
             dateTextView = (TextView) itemView.findViewById(R.id.textViewDate);
             trackingTextView = (TextView) itemView.findViewById(R.id.trackingTextView);
+            expiredTextView = (TextView) itemView.findViewById(R.id.expiredTextView);
+            finishedTextView = (TextView) itemView.findViewById(R.id.finishedTextView);
             imageView = (ImageView) itemView.findViewById(R.id.account_image);
             viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);
@@ -96,8 +100,14 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
             this.meeting = meeting;
             nameTextView.setText(meeting.name);
             placeTextView.setText(meeting.place.name);
-            if(!meeting.tracked) {
-                trackingTextView.setVisibility(View.GONE);
+            if(meeting.tracked) {
+                trackingTextView.setVisibility(View.VISIBLE);
+            }
+            if(meeting.finished) {
+                finishedTextView.setVisibility(View.VISIBLE);
+            }
+            else if(meeting.meetingDate < System.currentTimeMillis()) {
+                expiredTextView.setVisibility(View.VISIBLE);
             }
             Date date = new Date(meeting.meetingDate);
             SimpleDateFormat spf = new SimpleDateFormat("yyyy. MM. dd. HH:mm");

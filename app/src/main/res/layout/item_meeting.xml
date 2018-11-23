@@ -85,8 +85,23 @@
                     android:id="@+id/trackingTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="@string/tracking_in_progress"
                     android:textColor="@android:color/holo_green_dark" />
+                <TextView
+                    android:id="@+id/finishedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="@string/finished"
+                    android:textColor="@android:color/holo_orange_light" />
+                <TextView
+                    android:id="@+id/expiredTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expired"
+                    android:visibility="gone"
+                    android:textColor="@android:color/holo_red_light" />
 
             </LinearLayout>
         </LinearLayout>

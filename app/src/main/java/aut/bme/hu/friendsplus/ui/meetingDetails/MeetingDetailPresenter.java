@@ -57,8 +57,10 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
         super.detachScreen();
     }
 
-    public boolean isMyMeeting() {
-        return myUID.equals(meeting.uid);
+    public boolean canEdit() {
+
+        return myUID.equals(meeting.uid)&& !meeting.finished &&
+                System.currentTimeMillis() < meeting.meetingDate && !meeting.tracked;
     }
 
     public void signOut() {
@@ -92,7 +94,10 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
         if(meeting.finished) {
             screen.setStartButtonFinished();
         } else {
-
+            if(meeting.meetingDate < System.currentTimeMillis()) {
+                screen.setStartButtonExpired();
+                return;
+            }
             if((!trackingStarted && !meeting.tracked)) {
 
                 screen.setStartButtonNoTracking();

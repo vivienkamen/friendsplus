@@ -181,6 +181,14 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
         //másik meeting tracking folyamatban
     }
 
+    @Override
+    public void setStartButtonExpired() {
+        startButton.setText("Expired");
+        startButton.setEnabled(false);
+        startButton.setBackground(getResources().getDrawable(R.drawable.rounded_button_transparent));
+        startButton.setTextColor( getResources().getColor(R.color.place_autocomplete_search_hint));
+    }
+
     private void initDrawerLayout() {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -209,7 +217,7 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        if(presenter.isMyMeeting())
+        if(presenter.canEdit())
             getMenuInflater().inflate(R.menu.details_menu, menu);
         return true;
     }
