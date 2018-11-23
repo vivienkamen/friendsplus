@@ -14,7 +14,7 @@ public class GoogleLoginPresenter extends Presenter<GoogleLoginScreen> implement
 
     public GoogleLoginPresenter() {
         authInteractor = new AuthInteractor(this, null);
-        userDatabaseInteractor = new UserDatabaseInteractor(null);
+        userDatabaseInteractor = new UserDatabaseInteractor(null, null);
     }
 
     @Override

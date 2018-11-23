@@ -1,9 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
     tools:context=".ui.meetingDetails.MeetingDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:titleTextColor="@android:color/white"
+                app:subtitleTextColor="@android:color/white"/>
+
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="5dp"
+                class="com.google.android.gms.maps.MapFragment"
+                android:layout_below="@+id/toolbar"/>
+
+
+            <ImageView
+                android:id="@+id/placeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/map"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/place" />
+
+
+            <TextView
+                android:id="@+id/placeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/placeIcon"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/map"
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="8dp"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addressTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/placeTextView"
+                android:layout_toRightOf="@+id/placeIcon"
+                android:layout_alignParentRight="true"
+                android:layout_marginHorizontal="8dp" />
+
+
+            <ImageView
+                android:id="@+id/dateIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/placeIcon"
+                android:layout_alignStart="@+id/placeIcon"
+                android:layout_below="@+id/addressTextView"
+                android:layout_marginBottom="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressTextView"
+                android:layout_toRightOf="@+id/dateIcon"
+                android:layout_alignParentRight="true"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
+                android:textSize="18dp" />
+
+
+            <TextView
+                android:id="@+id/addedByTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/dateIcon"
+                android:layout_alignStart="@+id/dateIcon"
+                android:layout_below="@+id/dateIcon"
+                android:text="@string/added_by" />
+
+            <TextView
+                android:id="@+id/addedByTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateTextView"
+                android:layout_toEndOf="@+id/addedByTextView1"
+                android:layout_toRightOf="@+id/addedByTextView1"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/arrivedTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addedByTextView1"
+                android:layout_alignStart="@+id/addedByTextView1"
+                android:layout_alignLeft="@+id/addedByTextView1"
+                android:fontFamily="@string/main_font"
+                android:layout_marginTop="15dp"
+                android:textColor="@android:color/holo_green_dark"/>
+
+
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_button_solid"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/nav_header"/>
+
+
+
+</android.support.v4.widget.DrawerLayout>

@@ -117,8 +117,8 @@ public class AccountActivity extends BaseActivity implements AccountScreen {
 
         imageView = (ImageView) findViewById(R.id.profilePicture);
         changePhotoButton = (Button) findViewById(R.id.changePictureButton);
-        nameEditText = (EditText) findViewById(R.id.textViewName);
-        emailEditText = (EditText) findViewById(R.id.textViewEmail);
+        nameEditText = (EditText) findViewById(R.id.editTextName);
+        emailEditText = (EditText) findViewById(R.id.editTextEmail);
         saveButton = (Button) findViewById(R.id.saveButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
 

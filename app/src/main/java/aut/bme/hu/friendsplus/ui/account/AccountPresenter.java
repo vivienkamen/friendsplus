@@ -21,7 +21,7 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
     public AccountPresenter() {
 
         authInteractor = new AuthInteractor(null, this);
-        userDatabaseInteractor = new UserDatabaseInteractor(this);
+        userDatabaseInteractor = new UserDatabaseInteractor(this, null);
         storageInteractor = new StorageInteractor(this);
     }
 
@@ -42,7 +42,7 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
         } else {
             screen.setUpdatedUser();
             screen.updateCurrentUser();
-            authInteractor.updateFirebaseUser(screen.getUpdatedUser().email);
+            authInteractor.updateFirebaseEmail(screen.getUpdatedUser().email);
             userDatabaseInteractor.updateUserDatabase(screen.getUpdatedUser());
         }
         screen.resetUpdatedUser();
@@ -68,7 +68,7 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
         screen.setImageUri(imageUri);
         screen.setUpdatedUser();
         screen.updateCurrentUser();
-        authInteractor.updateFirebaseUser(screen.getUpdatedUser().email);
+        authInteractor.updateFirebaseEmail(screen.getUpdatedUser().email);
         userDatabaseInteractor.updateUserDatabase(screen.getUpdatedUser());
     }
 

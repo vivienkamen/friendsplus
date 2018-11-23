@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
 import aut.bme.hu.friendsplus.ui.listeners.FirebaseUserListener;
@@ -137,7 +138,7 @@ public class AuthInteractor {
         return mAuth.getCurrentUser();
     }
 
-    public void updateFirebaseUser(String email) {
+    public void updateFirebaseEmail(String email) {
         FirebaseUser firebaseUser = getCurrentUser();
 
         if(firebaseUser != null) {
@@ -153,6 +154,7 @@ public class AuthInteractor {
                     });
         }
     }
+
 
 
 }

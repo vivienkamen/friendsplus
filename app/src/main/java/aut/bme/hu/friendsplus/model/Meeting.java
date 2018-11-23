@@ -22,7 +22,7 @@ public class Meeting implements Parcelable {
     public String key;
     public int position;
     public boolean tracked = false;
-    private boolean finished;
+    public boolean finished;
     private HashMap<String, String> trackedFriends = new HashMap<>();
 
     public Meeting() {}
