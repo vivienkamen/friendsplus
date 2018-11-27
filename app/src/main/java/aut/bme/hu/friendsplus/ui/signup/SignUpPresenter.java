@@ -11,8 +11,10 @@ public class SignUpPresenter extends Presenter<SignUpScreen> implements AuthList
     UserDatabaseInteractor userDatabaseInteractor;
 
     public SignUpPresenter() {
-        authInteractor = new AuthInteractor(this, null);
-        userDatabaseInteractor = new UserDatabaseInteractor(null, null);
+        authInteractor = new AuthInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor();
+
+        authInteractor.setAuthListener(this);
     }
 
     @Override

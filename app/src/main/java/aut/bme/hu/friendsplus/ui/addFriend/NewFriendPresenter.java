@@ -10,7 +10,8 @@ public class NewFriendPresenter extends Presenter<NewFriendScreen> implements Us
     UserDatabaseInteractor userDatabaseInteractor;
 
     public NewFriendPresenter() {
-        userDatabaseInteractor = new UserDatabaseInteractor(this, null);
+        userDatabaseInteractor = new UserDatabaseInteractor();
+        userDatabaseInteractor.setUsersListener(this);
     }
 
     @Override

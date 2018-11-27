@@ -10,6 +10,7 @@ import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.account.AccountActivity;
 import aut.bme.hu.friendsplus.ui.friends.FriendsActivity;
 import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
+import aut.bme.hu.friendsplus.ui.tracking.TrackingActivity;
 
 public class NavigationDrawer {
 
@@ -38,7 +39,7 @@ public class NavigationDrawer {
                         switch (menuItem.getItemId()) {
                             case R.id.account:
                                 Intent intentAccount = new Intent(activity, AccountActivity.class);
-                                intentAccount.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intentAccount.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // || single top todo
                                 activity.startActivity(intentAccount);
                                 break;
                             case R.id.meetings:
@@ -52,10 +53,10 @@ public class NavigationDrawer {
                                 activity.startActivity(intentFriends);
                                 break;
                             case R.id.tracking:
-                                /*Intent intentTracking = new Intent(activity, TrackingActivity.class);
+                                Intent intentTracking = new Intent(activity, TrackingActivity.class);
                                 intentTracking.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 activity.startActivity(intentTracking);
-                                break;*/
+                                break;
                             case R.id.signOut:
                                 activity.signOut();
                                 break;

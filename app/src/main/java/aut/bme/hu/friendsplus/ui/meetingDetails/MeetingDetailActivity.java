@@ -127,6 +127,7 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
         arrivedTextView.setText(presenter.getArrivedFriends());
         startButton.setText("Finished");
         startButton.setEnabled(false);
+        startButton.setVisibility(View.VISIBLE);
         startButton.setBackground(getResources().getDrawable(R.drawable.rounded_button_transparent));
         startButton.setTextColor( getResources().getColor(R.color.place_autocomplete_search_hint));
     }
@@ -134,18 +135,21 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
     @Override
     public void setStartButtonNoTracking() {
         startButton.setText("Start");
+        startButton.setVisibility(View.VISIBLE);
         startButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(PermissionChecker.checkLocationPermission(getBaseContext())) {
-                            Intent intent = new Intent(MeetingDetailActivity.this, TrackingService.class);
-                            startService(intent);
+                            Intent serviceIntent = new Intent(MeetingDetailActivity.this, TrackingService.class);
+                            startService(serviceIntent);
 
                             presenter.startTracking();
 
+                            Intent trackingIntent = new Intent(MeetingDetailActivity.this, TrackingActivity.class);
+                            trackingIntent.putExtra("Meeting", presenter.getMeeting());
+                            startActivity(trackingIntent);
                             finish();
-                            startActivity(new Intent(MeetingDetailActivity.this, TrackingActivity.class));
                         }
                         else if (!PermissionChecker.checkLocationPermission(MeetingDetailActivity.this)) {
                             PermissionChecker.requestLocationPermission(MeetingDetailActivity.this);
@@ -156,14 +160,17 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
     }
 
     @Override
-    public void setStartButtonThisTrackingInProgress(boolean myTrackingStarted) {
+    public void setStartButtonThisTrackingInProgress(boolean buttonEnabled) {
         arrivedTextView.setText(presenter.getArrivedFriends());
         startButton.setText("Tracking");
+        startButton.setEnabled(buttonEnabled);
+        startButton.setVisibility(View.VISIBLE);
         startButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MeetingDetailActivity.this, TrackingActivity.class);
+                        intent.putExtra("Meeting", presenter.getMeeting());
                         startActivity(intent);
                     }
                 }
@@ -175,15 +182,17 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
 
         startButton.setEnabled(false);
         startButton.setText("Start");
+        startButton.setVisibility(View.VISIBLE);
         startButton.setBackground(getResources().getDrawable(R.drawable.rounded_button_transparent));
         startButton.setTextColor( getResources().getColor(R.color.place_autocomplete_search_hint));
-        //másik meeting tracking folyamatban
+
     }
 
     @Override
     public void setStartButtonExpired() {
         startButton.setText("Expired");
         startButton.setEnabled(false);
+        startButton.setVisibility(View.VISIBLE);
         startButton.setBackground(getResources().getDrawable(R.drawable.rounded_button_transparent));
         startButton.setTextColor( getResources().getColor(R.color.place_autocomplete_search_hint));
     }

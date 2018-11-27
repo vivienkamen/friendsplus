@@ -32,9 +32,12 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
 
         friendsProvider = new FriendsProvider(this);
 
-        meetingsDatabaseInteractor = new MeetingsDatabaseInteractor(this, null);
-        userDatabaseInteractor = new UserDatabaseInteractor(this, null);
-        authInteractor = new AuthInteractor(null, null);
+        meetingsDatabaseInteractor = new MeetingsDatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor();
+        authInteractor = new AuthInteractor();
+
+        meetingsDatabaseInteractor.setMeetingsListener(this);
+        userDatabaseInteractor.setUsersListener(this);
 
         meetings = new ArrayList<>();
         keys = new ArrayList<>();

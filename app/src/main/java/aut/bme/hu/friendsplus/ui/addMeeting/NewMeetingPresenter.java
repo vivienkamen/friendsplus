@@ -16,7 +16,7 @@ public class NewMeetingPresenter extends Presenter<NewMeetingScreen> {
 
     public NewMeetingPresenter() {
 
-        authInteractor = new AuthInteractor(null, null);
+        authInteractor = new AuthInteractor();
         meeting = new Meeting();
         meetingDate = Calendar.getInstance();
         meetingDate.clear();

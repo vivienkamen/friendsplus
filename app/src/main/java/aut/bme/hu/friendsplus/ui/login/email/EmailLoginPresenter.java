@@ -12,7 +12,8 @@ public class EmailLoginPresenter extends Presenter<LoginScreen> implements AuthL
     AuthInteractor authInteractor;
 
     public EmailLoginPresenter() {
-        authInteractor = new AuthInteractor(this, null);
+        authInteractor = new AuthInteractor();
+        authInteractor.setAuthListener(this);
     }
 
     @Override

@@ -25,10 +25,13 @@ public class FriendsDatabaseInteractor {
     private FriendsListener friendsListener;
 
 
-    public FriendsDatabaseInteractor(FriendsListener listener) {
+    public FriendsDatabaseInteractor() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        friendsListener = listener;
+    }
+
+    public void setFriendsListener(FriendsListener friendsListener) {
+        this.friendsListener = friendsListener;
     }
 
     public void getFriends() {

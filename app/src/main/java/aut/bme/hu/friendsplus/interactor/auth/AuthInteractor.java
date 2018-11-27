@@ -27,9 +27,15 @@ public class AuthInteractor {
     private AuthListener authListener;
     private FirebaseUserListener firebaseUserListener;
 
-    public AuthInteractor(AuthListener authListener, FirebaseUserListener firebaseUserListener) {
+    public AuthInteractor() {
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    public void setAuthListener(AuthListener authListener) {
         this.authListener = authListener;
+    }
+
+    public void setFirebaseUserListener(FirebaseUserListener firebaseUserListener) {
         this.firebaseUserListener = firebaseUserListener;
     }
 

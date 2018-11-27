@@ -45,7 +45,6 @@ public class EmailLoginActivity extends BaseActivity implements LoginScreen, Vie
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.buttonLogin).setOnClickListener(this);
-        findViewById(R.id.forgottenPasswordTextView).setOnClickListener(this);
 
     }
 
@@ -74,10 +73,6 @@ public class EmailLoginActivity extends BaseActivity implements LoginScreen, Vie
                     progressBar.setVisibility(View.VISIBLE);
                     presenter.login(editTextEmail.getText().toString(), editTextPassword.getText().toString());
                 }
-                break;
-            case R.id.forgottenPasswordTextView:
-                //ResetPasswordDialogFragment resetPasswordDialogFragment = new ResetPasswordDialogFragment();
-                //resetPasswordDialogFragment.show(getSupportFragmentManager(), ResetPasswordDialogFragment.TAG);
                 break;
         }
     }

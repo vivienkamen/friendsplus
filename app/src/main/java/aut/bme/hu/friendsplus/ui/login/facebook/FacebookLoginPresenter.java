@@ -16,8 +16,9 @@ public class FacebookLoginPresenter extends Presenter<FacebookLoginScreen> imple
     UserDatabaseInteractor userDatabaseInteractor;
 
     public FacebookLoginPresenter() {
-        authInteractor = new AuthInteractor(this, null);
-        userDatabaseInteractor = new UserDatabaseInteractor(null, null);
+        authInteractor = new AuthInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor();
+        authInteractor.setAuthListener(this);
     }
 
     @Override

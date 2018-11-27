@@ -7,7 +7,7 @@ public interface MeetingDetailScreen {
     void setAddedByTextView(String creator);
     void setStartButtonFinished();
     void setStartButtonNoTracking();
-    void setStartButtonThisTrackingInProgress(boolean myTrackingStarted);
+    void setStartButtonThisTrackingInProgress(boolean buttonEnabled);
     void setStartButtonOtherTrackingInProgress();
     void setStartButtonExpired();
 }

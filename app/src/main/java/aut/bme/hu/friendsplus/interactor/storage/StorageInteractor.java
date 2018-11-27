@@ -22,17 +22,19 @@ public class StorageInteractor {
 
     private StorageListener listener;
 
-    public StorageInteractor(StorageListener listener) {
+    public StorageInteractor() {
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        this.listener = listener;
+    }
 
+    public void setStorageListener(StorageListener storageListener) {
+        listener = storageListener;
     }
 
     public void saveImage(String uid, Uri profileImageUri) {
         StorageReference riversRef = mStorageRef.child("images/" + uid + ".jpg");
         UploadTask uploadTask = riversRef.putFile(profileImageUri);
 
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                 if (!task.isSuccessful()) {

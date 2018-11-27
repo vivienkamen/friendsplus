@@ -20,9 +20,13 @@ public class AccountPresenter extends Presenter<AccountScreen> implements UsersL
 
     public AccountPresenter() {
 
-        authInteractor = new AuthInteractor(null, this);
-        userDatabaseInteractor = new UserDatabaseInteractor(this, null);
-        storageInteractor = new StorageInteractor(this);
+        authInteractor = new AuthInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor();
+        storageInteractor = new StorageInteractor();
+
+        authInteractor.setFirebaseUserListener(this);
+        userDatabaseInteractor.setUsersListener(this);
+        storageInteractor.setStorageListener(this);
     }
 
     @Override

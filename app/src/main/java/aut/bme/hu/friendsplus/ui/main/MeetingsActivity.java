@@ -151,6 +151,12 @@ public class MeetingsActivity extends BaseActivity implements NewMeetingListener
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapter.refreshItems();
+    }
+
+    @Override
     public void onMeetingCreated(Meeting meeting) {
         presenter.addMeeting(meeting);
     }

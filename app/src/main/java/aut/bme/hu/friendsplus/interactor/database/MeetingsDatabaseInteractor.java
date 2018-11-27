@@ -9,10 +9,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.ui.listeners.MeetingsListener;
+import aut.bme.hu.friendsplus.ui.listeners.TrackedMeetingsListener;
 import aut.bme.hu.friendsplus.ui.listeners.TrackingListener;
 
 public class MeetingsDatabaseInteractor {
@@ -23,10 +27,21 @@ public class MeetingsDatabaseInteractor {
     private ChildEventListener childEventListener;
     private MeetingsListener meetingsListener;
     private TrackingListener trackingListener;
+    private TrackedMeetingsListener trackedMeetingsListener;
 
-    public MeetingsDatabaseInteractor(MeetingsListener meetingsListener, TrackingListener trackingListener) {
+    public MeetingsDatabaseInteractor() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void setMeetingsListener(MeetingsListener meetingsListener) {
         this.meetingsListener = meetingsListener;
+    }
+
+    public void setTrackedMeetingsListener(TrackedMeetingsListener trackedMeetingsListener) {
+        this.trackedMeetingsListener = trackedMeetingsListener;
+    }
+
+    public void setTrackingListener(TrackingListener trackingListener) {
         this.trackingListener = trackingListener;
     }
 
@@ -96,7 +111,7 @@ public class MeetingsDatabaseInteractor {
 
     }
 
-    public void checkTrackingStarted() {
+    public void checkMyTrackingStarted(final String myUID) {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -105,10 +120,9 @@ public class MeetingsDatabaseInteractor {
 
                 for(DataSnapshot meetingSnapshot : dataSnapshot.child("meetings").getChildren()) {
                     Meeting meeting = meetingSnapshot.getValue(Meeting.class);
-                    if(meeting.tracked) {
+                    if(meeting.tracked && meeting.containsFriend(myUID)) {
                         trackingStarted = true;
                     }
-
                 }
                 trackingListener.onTrackingFound(trackingStarted);
             }
@@ -123,5 +137,31 @@ public class MeetingsDatabaseInteractor {
     public void updateDatabase(Map<String, Object> childUpdates) {
 
         mDatabase.updateChildren(childUpdates);
+    }
+
+    public void getTrackedMeetings() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Meeting> trackedMeetings = new ArrayList<>();
+                for(DataSnapshot meetingDataSnapshot : dataSnapshot.child("meetings").getChildren()) {
+                    Meeting meeting = meetingDataSnapshot.getValue(Meeting.class);
+                    if(meeting.tracked) {
+
+                        HashMap<String, String> tf = new HashMap<>();
+                        for(DataSnapshot mapDataSnapshot : meetingDataSnapshot.child("trackedFriends").getChildren()) {
+                            tf.put(mapDataSnapshot.getKey(), mapDataSnapshot.getValue().toString());
+                        }
+                        meeting.trackedFriends = tf;
+                        trackedMeetings.add(meeting);
+                    }
+                }
+                trackedMeetingsListener.onTrackedMeetingsListFound(trackedMeetings);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 }

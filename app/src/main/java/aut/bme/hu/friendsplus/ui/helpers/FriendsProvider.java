@@ -13,7 +13,8 @@ public class FriendsProvider implements FriendsListener {
     FriendsReadyListener listener;
 
     public FriendsProvider(FriendsReadyListener listener) {
-        friendsDatabaseInteractor = new FriendsDatabaseInteractor(this);
+        friendsDatabaseInteractor = new FriendsDatabaseInteractor();
+        friendsDatabaseInteractor.setFriendsListener(this);
         friends = new ArrayList<>();
 
         this.listener = listener;

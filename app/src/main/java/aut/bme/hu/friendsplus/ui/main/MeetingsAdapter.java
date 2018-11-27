@@ -62,6 +62,10 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
         notifyDataSetChanged();
     }
 
+    public void refreshItems() {
+        notifyDataSetChanged();
+    }
+
     public static class MeetingRowViewHolder extends RecyclerView.ViewHolder implements MeetingRowScreen, View.OnClickListener {
 
         TextView nameTextView;
@@ -97,6 +101,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
 
         @Override
         public void setMeeting(Meeting meeting) {
+            clearTextViews();
             this.meeting = meeting;
             nameTextView.setText(meeting.name);
             placeTextView.setText(meeting.place.name);
@@ -112,6 +117,13 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
             Date date = new Date(meeting.meetingDate);
             SimpleDateFormat spf = new SimpleDateFormat("yyyy. MM. dd. HH:mm");
             dateTextView.setText(spf.format(date));
+
+        }
+
+        private void clearTextViews() {
+            trackingTextView.setVisibility(View.GONE);
+            finishedTextView.setVisibility(View.GONE);
+            expiredTextView.setVisibility(View.GONE);
 
         }
 

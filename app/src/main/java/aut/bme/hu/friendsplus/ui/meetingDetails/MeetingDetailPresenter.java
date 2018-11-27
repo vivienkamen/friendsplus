@@ -29,21 +29,25 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     String myUID;
     List<User> users;
     private String meetingCreator;
-    private boolean trackingStarted;
+    private boolean myTrackingStarted;
 
     public MeetingDetailPresenter(Meeting meeting) {
-        authInteractor = new AuthInteractor(null, null);
-        meetingsDatabaseInteractor = new MeetingsDatabaseInteractor(null, this);
-        userDatabaseInteractor = new UserDatabaseInteractor(this, this);
+        authInteractor = new AuthInteractor();
+        meetingsDatabaseInteractor = new MeetingsDatabaseInteractor();
+        userDatabaseInteractor = new UserDatabaseInteractor();
+
+        meetingsDatabaseInteractor.setTrackingListener(this);
+        userDatabaseInteractor.setUsersListener(this);
+        userDatabaseInteractor.setUserListListener(this);
 
         this.meeting = meeting;
         myUID = authInteractor.getCurrentUser().getUid();
-        trackingStarted = false;
+        myTrackingStarted = false;
         users = new ArrayList<>();
 
         if(meeting.position < 0) throw new RuntimeException("Érvénytelen pozíció!");
 
-        meetingsDatabaseInteractor.checkTrackingStarted();
+        meetingsDatabaseInteractor.checkMyTrackingStarted(myUID);
         userDatabaseInteractor.getUsers(meeting.getArrivedFriends());
     }
 
@@ -69,7 +73,7 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
 
     @Override
     public void onTrackingFound(boolean trackingStarted) {
-        this.trackingStarted = trackingStarted;
+        this.myTrackingStarted = trackingStarted;
         screen.refreshUI(meeting);
 
         getUserName();
@@ -98,17 +102,21 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
                 screen.setStartButtonExpired();
                 return;
             }
-            if((!trackingStarted && !meeting.tracked)) {
+            if(!meeting.tracked) {
+                if(!myTrackingStarted) {
+                    screen.setStartButtonNoTracking();
 
-                screen.setStartButtonNoTracking();
+                } else {
+                    screen.setStartButtonOtherTrackingInProgress();
+                }
 
-            }else if(trackingStarted && meeting.tracked) {
+            } else {
+                boolean buttonEnabled = meeting.containsFriend(myUID);
+                if(!myTrackingStarted) {
+                    buttonEnabled = true;
+                }
+                screen.setStartButtonThisTrackingInProgress(buttonEnabled);
 
-                screen.setStartButtonThisTrackingInProgress(meeting.containsFriend(myUID));
-
-            } else if(trackingStarted && !meeting.tracked){
-
-                screen.setStartButtonOtherTrackingInProgress();
             }
         }
     }
@@ -131,11 +139,22 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     public String getArrivedFriends() {
         String usersArrived = "";
 
-        for(User user : users) {
+        for(String uid : meeting.getArrivedFriends()) {
 
-            usersArrived += user.username + " arrived\n";
+            usersArrived += getUser(uid).username + " arrived\n";
         }
         return usersArrived;
+    }
+
+    private User getUser(String uid) {
+        User user = new User();
+
+        for(User u : users) {
+            if(u.uid.equals(uid)) {
+                user = u;
+            }
+        }
+        return user;
     }
 
     public Meeting getMeeting() {

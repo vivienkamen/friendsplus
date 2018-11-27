@@ -2,33 +2,24 @@ package aut.bme.hu.friendsplus.ui.addMeeting;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Calendar;
 
 import aut.bme.hu.friendsplus.R;
-import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.MyPlace;
 import aut.bme.hu.friendsplus.ui.helpers.PickerDialogs;
 import aut.bme.hu.friendsplus.ui.listeners.NewMeetingListener;
@@ -115,7 +106,7 @@ public class NewMeetingFragment extends AppCompatDialogFragment implements NewMe
         placePickerTextView = (TextView) contentView.findViewById(R.id.PlacePickerTextView);
         placePickerTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = PickerDialogs.viewPlacePickerDialog(getActivity());
+                Intent intent = PickerDialogs.showPlacePickerDialog(getActivity());
                 startActivityForResult(intent, PLACE_PICKER_REQUEST);
             }
         });

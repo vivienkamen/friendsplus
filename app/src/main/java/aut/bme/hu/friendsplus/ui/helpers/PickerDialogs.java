@@ -65,15 +65,13 @@ public class PickerDialogs {
         datePicker.show();
     }
 
-    public static Intent viewPlacePickerDialog(FragmentActivity activity) {
+    public static Intent showPlacePickerDialog(FragmentActivity activity) {
 
         try {
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
             Intent intent = intentBuilder.build(activity);
 
             return intent;
-
-
 
         } catch (GooglePlayServicesRepairableException e) {
             GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
@@ -87,48 +85,25 @@ public class PickerDialogs {
         return null;
     }
 
-    public static boolean validateDate(int year, int monthOfYear, int dayOfMonth) {
+    private static boolean validateDate(int year, int monthOfYear, int dayOfMonth) {
 
-        Calendar c = Calendar.getInstance();
-        int yy = c.get(Calendar.YEAR);
-        int mm = c.get(Calendar.MONTH);
-        int dd = c.get(Calendar.DAY_OF_MONTH);
-        if(year < yy) {
-            return false;
-        }
-        if(monthOfYear < mm) {
-            return false;
-        }
-        if(dayOfMonth < dd) {
-            return false;
-        }
+        Calendar today = Calendar.getInstance();
 
-        return true;
+        Calendar meetingDate = Calendar.getInstance();
+        meetingDate.set(year, monthOfYear, dayOfMonth);
+
+        return meetingDate.after(today);
     }
 
-    public static boolean validateTime(int hour, int minute, Calendar meetingDate) {
-        Calendar c = Calendar.getInstance();
-        int hh = c.get(Calendar.HOUR_OF_DAY);
-        int mm = c.get(Calendar.MINUTE);
+    private static boolean validateTime(int hour, int minute, Calendar meetingDate) {
+        Calendar today = Calendar.getInstance();
 
-        if(dateEquals(c, meetingDate)) {
-            if(hour < hh) {
-                return false;
-            }
-            if(minute <= mm) {
-                return false;
-            }
-        }
-        return true;
+        meetingDate.set(Calendar.HOUR_OF_DAY, hour);
+        meetingDate.set(Calendar.MINUTE, minute);
+
+        return meetingDate.after(today);
 
     }
 
-    public static boolean dateEquals(Calendar c, Calendar meetingDate) {
-        if(c.get(Calendar.YEAR) == meetingDate.get(Calendar.YEAR) &&
-                c.get(Calendar.MONTH) == meetingDate.get(Calendar.MONTH) &&
-                c.get(Calendar.DAY_OF_MONTH) == meetingDate.get(Calendar.DAY_OF_MONTH)) {
-            return true;
-        }
-        return false;
-    }
+
 }

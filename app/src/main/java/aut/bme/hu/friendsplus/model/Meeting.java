@@ -23,7 +23,7 @@ public class Meeting implements Parcelable {
     public int position;
     public boolean tracked = false;
     public boolean finished;
-    private HashMap<String, String> trackedFriends = new HashMap<>();
+    public HashMap<String, String> trackedFriends = new HashMap<>();
 
     public Meeting() {}
 
@@ -139,7 +139,7 @@ public class Meeting implements Parcelable {
 
     }
 
-    public boolean isFriendTracked(String uid, String status) {
+    public boolean isFriendInStatus(String uid, String status) {
         boolean friendTracked = false;
 
         String status2 = trackedFriends.get(uid);

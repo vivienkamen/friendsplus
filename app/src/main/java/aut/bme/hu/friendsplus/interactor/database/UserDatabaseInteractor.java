@@ -21,9 +21,15 @@ public class UserDatabaseInteractor {
     private UsersListener usersListener;
     private UserListListener userListListener;
 
-    public UserDatabaseInteractor(UsersListener usersListener, UserListListener userListListener){
+    public UserDatabaseInteractor(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void setUsersListener(UsersListener usersListener) {
         this.usersListener = usersListener;
+    }
+
+    public void setUserListListener(UserListListener userListListener) {
         this.userListListener = userListListener;
     }
 

@@ -70,17 +70,6 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/forgottenPasswordTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/forgotten_password"
-                android:fontFamily="@string/main_font"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimary"
-                android:textAlignment="center"
-                android:layout_margin="5dp"/>
-
 
         </LinearLayout>
 
