@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.meetingDetails;
+package aut.bme.hu.friendsplus.ui.meetings.meetingDetails;
 
 import aut.bme.hu.friendsplus.model.Meeting;
 

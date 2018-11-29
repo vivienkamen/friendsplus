@@ -20,6 +20,10 @@
             android:title="@string/tracking"/>
 
         <item
+            android:id="@+id/messages"
+            android:title="@string/messages"/>
+
+        <item
             android:id="@+id/signOut"
             android:title="@string/sign_out" />
 

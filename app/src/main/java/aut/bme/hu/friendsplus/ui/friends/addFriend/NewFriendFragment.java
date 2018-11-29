@@ -1,20 +1,16 @@
-package aut.bme.hu.friendsplus.ui.addFriend;
+package aut.bme.hu.friendsplus.ui.friends.addFriend;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,12 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.User;
-import aut.bme.hu.friendsplus.ui.addMeeting.NewMeetingPresenter;
 import aut.bme.hu.friendsplus.ui.listeners.NewFriendListener;
 
 

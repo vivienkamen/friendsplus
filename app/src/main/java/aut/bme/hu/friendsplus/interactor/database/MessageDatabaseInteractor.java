@@ -2,7 +2,6 @@ package aut.bme.hu.friendsplus.interactor.database;
 
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,56 +12,69 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
+import aut.bme.hu.friendsplus.ui.listeners.UnreadMessageListener;
 
-public class FriendsDatabaseInteractor {
+public class MessageDatabaseInteractor {
 
-    private static final String TAG = "FriendsDbInteractor";
+    private static final String TAG = "MessageDBInteractor";
 
     private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
-    private ChildEventListener childEventListener;
+    private ChildEventListener friendsChildEventListener;
     private FriendsListener friendsListener;
+    private UnreadMessageListener unreadMessageListener;
 
-
-    public FriendsDatabaseInteractor() {
+    public MessageDatabaseInteractor() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
     }
 
     public void setFriendsListener(FriendsListener friendsListener) {
         this.friendsListener = friendsListener;
     }
 
-    public void getFriends() {
-        mDatabase.child("friends/" + mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setUnreadMessageListener(UnreadMessageListener unreadMessageListener) {
+        this.unreadMessageListener = unreadMessageListener;
+    }
+
+    public void addMessage(Message message, String myUID, String friendUID) {
+
+        String key = mDatabase.child("messages").child(myUID).child(friendUID).push().getKey();
+        mDatabase.child("messages").child(myUID).child(friendUID).child(key).setValue(message);
+    }
+
+    public void removeMessagesFromFriend(String myUID, String friendUID) {
+        mDatabase.child("messages").child(myUID).child(friendUID).removeValue();
+    }
+
+    public void getUnreadMessagesCount(String myUID, String friendUID) {
+
+        mDatabase.child("messages").child(myUID).child(friendUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> friends = new ArrayList<>();
-                for(DataSnapshot friendsDataSnapshot : dataSnapshot.getChildren()) {
-                    String uid = (String) friendsDataSnapshot.getValue();
-                    friends.add(uid);
+                int msgCount = 0;
+                for(DataSnapshot messageDataSnapshot : dataSnapshot.getChildren()) {
+                    Message message = messageDataSnapshot.getValue(Message.class);
+                    if(message.unread) {
+                        msgCount++;
+                    }
                 }
-                friends.add(mAuth.getUid());
-                friendsListener.onFriendListReady(friends);
+                unreadMessageListener.onCountFound(msgCount);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
-    public void addChildEventListener() {
-        childEventListener = new ChildEventListener() {
+    public void addFriendsChildEventListener(String myUID) {
+        friendsChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
                 String uid = (String) dataSnapshot.getValue();
                 friendsListener.onFriendAdded(uid);
-
             }
 
             @Override
@@ -87,25 +99,15 @@ public class FriendsDatabaseInteractor {
                 Log.w(TAG, "friends:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.child("friends/" + mAuth.getUid()).addChildEventListener(childEventListener);
+        mDatabase.child("messages/" + myUID).addChildEventListener(friendsChildEventListener);
 
     }
 
-    public void cleanupListener() {
-        if (childEventListener != null) {
-            mDatabase.child("friends/" + mAuth.getUid()).removeEventListener(childEventListener);
+    public void cleanupListeners(String myUID) {
+        if (friendsChildEventListener != null) {
+            mDatabase.child("messages/" + myUID).removeEventListener(friendsChildEventListener);
         }
     }
 
-    public void addFriend(String uid) {
-        mDatabase.child("friends/" + mAuth.getUid()).child(uid).setValue(uid);
-    }
 
-    public void removeFriend(String uid) {
-        mDatabase.child("friends/" + mAuth.getUid()).child(uid).removeValue();
-    }
-
-    public void restoreFriend(String uid) {
-        mDatabase.child("friends/" + mAuth.getUid()).child(uid).setValue(uid);
-    }
 }

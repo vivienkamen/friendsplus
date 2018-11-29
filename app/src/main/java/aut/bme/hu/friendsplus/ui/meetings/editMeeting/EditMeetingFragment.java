@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.editMeeting;
+package aut.bme.hu.friendsplus.ui.meetings.editMeeting;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

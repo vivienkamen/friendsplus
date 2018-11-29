@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.meetingDetails;
+package aut.bme.hu.friendsplus.ui.meetings.meetingDetails;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,7 +34,7 @@ import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.services.TrackingService;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
-import aut.bme.hu.friendsplus.ui.editMeeting.EditMeetingFragment;
+import aut.bme.hu.friendsplus.ui.meetings.editMeeting.EditMeetingFragment;
 import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
 import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
 import aut.bme.hu.friendsplus.ui.listeners.EditMeetingListener;

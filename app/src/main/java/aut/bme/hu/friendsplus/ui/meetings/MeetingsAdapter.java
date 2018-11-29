@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.main;
+package aut.bme.hu.friendsplus.ui.meetings;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -21,7 +21,8 @@ import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemClickListener;
 
-public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.MeetingRowViewHolder> implements ItemChangeListener {
+public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.MeetingRowViewHolder>
+        implements ItemChangeListener {
 
     public static final String TAG = "MeetingsAdapter";
 

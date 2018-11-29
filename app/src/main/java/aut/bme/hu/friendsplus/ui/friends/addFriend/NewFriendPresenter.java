@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.addFriend;
+package aut.bme.hu.friendsplus.ui.friends.addFriend;
 
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.model.User;

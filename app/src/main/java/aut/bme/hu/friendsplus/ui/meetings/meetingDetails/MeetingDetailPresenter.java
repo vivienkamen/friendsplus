@@ -1,7 +1,4 @@
-package aut.bme.hu.friendsplus.ui.meetingDetails;
-
-import android.content.Intent;
-import android.view.View;
+package aut.bme.hu.friendsplus.ui.meetings.meetingDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;

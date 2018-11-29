@@ -12,9 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,8 +24,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.services.TrackingService;
@@ -35,9 +31,7 @@ import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
 import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
-import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
-import aut.bme.hu.friendsplus.ui.listeners.TrackedMeetingsListener;
-import aut.bme.hu.friendsplus.ui.meetingDetails.MeetingDetailActivity;
+import aut.bme.hu.friendsplus.ui.meetings.meetingDetails.MeetingDetailActivity;
 
 public class TrackingActivity extends BaseActivity implements TrackingScreen, OnMapReadyCallback {
 

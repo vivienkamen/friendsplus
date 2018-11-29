@@ -1,10 +1,9 @@
-package aut.bme.hu.friendsplus.ui.main;
+package aut.bme.hu.friendsplus.ui.meetings;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.FriendsDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.MeetingsDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.model.Meeting;

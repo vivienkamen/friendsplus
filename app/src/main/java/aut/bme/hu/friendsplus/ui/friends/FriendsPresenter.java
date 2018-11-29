@@ -6,13 +6,11 @@ import java.util.List;
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
 import aut.bme.hu.friendsplus.interactor.database.FriendsDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
-import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
-import aut.bme.hu.friendsplus.ui.main.MeetingRowScreen;
 
 public class FriendsPresenter extends Presenter<FriendRowScreen> implements FriendsListener, UsersListener {
 

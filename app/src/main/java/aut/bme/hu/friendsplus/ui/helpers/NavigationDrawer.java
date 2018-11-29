@@ -9,7 +9,8 @@ import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.account.AccountActivity;
 import aut.bme.hu.friendsplus.ui.friends.FriendsActivity;
-import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
+import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
+import aut.bme.hu.friendsplus.ui.messages.MessagesOverviewActivity;
 import aut.bme.hu.friendsplus.ui.tracking.TrackingActivity;
 
 public class NavigationDrawer {
@@ -26,7 +27,6 @@ public class NavigationDrawer {
 
     public void initNavigationDrawer() {
 
-        navigationView.getMenu().getItem(1).setChecked(true);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -56,6 +56,11 @@ public class NavigationDrawer {
                                 Intent intentTracking = new Intent(activity, TrackingActivity.class);
                                 intentTracking.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 activity.startActivity(intentTracking);
+                                break;
+                            case R.id.messages:
+                                Intent intentMessages = new Intent(activity, MessagesOverviewActivity.class);
+                                intentMessages.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                activity.startActivity(intentMessages);
                                 break;
                             case R.id.signOut:
                                 activity.signOut();

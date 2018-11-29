@@ -1,6 +1,4 @@
-package aut.bme.hu.friendsplus.ui.addMeeting;
-
-import aut.bme.hu.friendsplus.model.Meeting;
+package aut.bme.hu.friendsplus.ui.meetings.addMeeting;
 
 public interface NewMeetingScreen {
     String getName();

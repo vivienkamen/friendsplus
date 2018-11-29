@@ -1,6 +1,4 @@
-package aut.bme.hu.friendsplus.ui.main;
-
-import android.content.Context;
+package aut.bme.hu.friendsplus.ui.meetings;
 
 import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.User;

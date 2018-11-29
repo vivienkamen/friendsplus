@@ -2,7 +2,6 @@ package aut.bme.hu.friendsplus.ui.friends;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +15,6 @@ import com.bumptech.glide.Glide;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
-import aut.bme.hu.friendsplus.ui.main.MeetingsAdapter;
-import aut.bme.hu.friendsplus.ui.main.MeetingsPresenter;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendRowViewHolder> implements ItemChangeListener {
 

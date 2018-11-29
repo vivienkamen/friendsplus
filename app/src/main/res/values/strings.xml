@@ -51,6 +51,7 @@
     <string name="done">Done</string>
     <string name="expired">● Expired</string>
     <string name="finished">● Finished</string>
+    <string name="messages">Messages</string>
 
 
 </resources>

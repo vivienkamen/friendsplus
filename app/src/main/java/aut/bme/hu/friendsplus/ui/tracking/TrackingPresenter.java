@@ -1,21 +1,16 @@
 package aut.bme.hu.friendsplus.ui.tracking;
 
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
-import aut.bme.hu.friendsplus.interactor.database.FriendsDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.LocationDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.MeetingsDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
@@ -28,7 +23,6 @@ import aut.bme.hu.friendsplus.ui.listeners.FriendsReadyListener;
 import aut.bme.hu.friendsplus.ui.listeners.LocationListener;
 import aut.bme.hu.friendsplus.ui.listeners.TrackedMeetingsListener;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
-import aut.bme.hu.friendsplus.ui.meetingDetails.MeetingDetailScreen;
 
 public class TrackingPresenter extends Presenter<TrackingScreen> implements LocationListener,
         FriendsReadyListener, UsersListener, TrackedMeetingsListener {

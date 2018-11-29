@@ -11,7 +11,7 @@ import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.login.email.EmailLoginActivity;
 import aut.bme.hu.friendsplus.ui.login.facebook.FacebookLoginActivity;
 import aut.bme.hu.friendsplus.ui.login.google.GoogleLoginActivity;
-import aut.bme.hu.friendsplus.ui.main.MeetingsActivity;
+import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
 
 
 public class AuthPickerActivity extends BaseActivity implements AuthPickerScreen, View.OnClickListener {
