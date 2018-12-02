@@ -24,7 +24,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendRo
 
     public FriendsAdapter(FriendsPresenter presenter) {
         this.presenter = presenter;
-        presenter.setListener(this);
+        presenter.setItemChangeListener(this);
     }
 
     @NonNull
@@ -50,6 +50,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendRo
     public void onItemChanged(int position) {
 
         notifyItemInserted(position);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void refreshItems() {
         notifyDataSetChanged();
     }
 

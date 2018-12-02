@@ -31,7 +31,7 @@ public class StorageInteractor {
     }
 
     public void saveImage(String uid, Uri profileImageUri) {
-        StorageReference riversRef = mStorageRef.child("images/" + uid + ".jpg");
+        final StorageReference riversRef = mStorageRef.child("images/" + uid + ".jpg");
         UploadTask uploadTask = riversRef.putFile(profileImageUri);
 
         uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -41,7 +41,7 @@ public class StorageInteractor {
                     throw task.getException();
                 }
 
-                return mStorageRef.getDownloadUrl();
+                return riversRef.getDownloadUrl();
             }
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override

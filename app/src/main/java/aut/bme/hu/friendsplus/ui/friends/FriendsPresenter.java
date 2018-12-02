@@ -10,6 +10,7 @@ import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
+import aut.bme.hu.friendsplus.ui.listeners.UserListListener;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
 
 public class FriendsPresenter extends Presenter<FriendRowScreen> implements FriendsListener, UsersListener {
@@ -18,9 +19,9 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
     private UserDatabaseInteractor userDatabaseInteractor;
     private AuthInteractor authInteractor;
 
-    private ItemChangeListener listener;
+    private ItemChangeListener itemChangeListener;
 
-    private List<String> friends;
+    private List<User> friends;
 
     public FriendsPresenter() {
         friendsDatabaseInteractor = new FriendsDatabaseInteractor();
@@ -46,16 +47,17 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
     }
 
     public void onBindFriendRowViewAtPosition(int position) {
-        String uid = friends.get(position);
-        userDatabaseInteractor.getUserByUid(uid);
+        User user = friends.get(position);
+        screen.setFriend(user);
+
     }
 
     public int getFriendRowsCount() {
         return friends.size();
     }
 
-    public void setListener(ItemChangeListener listener) {
-        this.listener = listener;
+    public void setItemChangeListener(ItemChangeListener itemChangeListener) {
+        this.itemChangeListener = itemChangeListener;
     }
 
     public void signOut() {
@@ -67,30 +69,41 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
 
     @Override
     public void onFriendAdded(String uid) {
-        friends.add(uid);
-        listener.onItemChanged(friends.size() - 1);
+
+        userDatabaseInteractor.getUserByUid(uid);
+
     }
 
     @Override
     public void onFiendRemoved(String uid) {
-        int friendIndex = friends.indexOf(uid);
+
+        int friendIndex = friends.indexOf(getFriendFromUID(uid));
         if (friendIndex > -1) {
 
             friends.remove(friendIndex);
 
-            listener.onItemChanged(friendIndex);
+            itemChangeListener.onItemChanged(friendIndex);
         }
     }
 
 
     @Override
     public void onUserFound(User user) {
-        screen.setFriend(user);
+        friends.add(user);
+        itemChangeListener.onItemChanged(friends.size() - 1);
     }
 
     @Override
-    public void onUserNotFound() {
+    public void onUserNotFound() {}
 
+    private User getFriendFromUID(String uid) {
+        User friend = new User();
+        for (User user : friends) {
+            if(user.uid.equals(uid)) {
+                friend = user;
+            }
+        }
+        return friend;
     }
 
     public void cleanupListener() {
@@ -99,23 +112,23 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
 
     public void addFriend(String uid) {
 
-        if(friends.contains(uid)) {
+        if(friends.contains(getFriendFromUID(uid))) {
             return;
         }
 
         friendsDatabaseInteractor.addFriend(uid);
-
     }
 
     public String removeFriend(int position) {
-        String uid = friends.get(position);
-        friendsDatabaseInteractor.removeFriend(uid);
+        User friend = friends.get(position);
+        friendsDatabaseInteractor.removeFriend(friend.uid);
 
-        return uid;
+        return friend.uid;
     }
 
     public void restoreFriend(String uid) {
         friendsDatabaseInteractor.restoreFriend(uid);
     }
+
 
 }

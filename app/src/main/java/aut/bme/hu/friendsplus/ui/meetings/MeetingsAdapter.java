@@ -33,7 +33,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
 
         this.presenter = presenter;
         this.listener = listener;
-        presenter.setListener(this);
+        presenter.setItemChangeListener(this);
     }
 
 
@@ -63,6 +63,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
         notifyDataSetChanged();
     }
 
+    @Override
     public void refreshItems() {
         notifyDataSetChanged();
     }

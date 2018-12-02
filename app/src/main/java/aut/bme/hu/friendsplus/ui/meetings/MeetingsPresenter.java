@@ -21,7 +21,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
     private UserDatabaseInteractor userDatabaseInteractor;
     private AuthInteractor authInteractor;
 
-    private ItemChangeListener listener;
+    private ItemChangeListener itemChangeListener;
 
     private List<Meeting> meetings;
     private List<String> keys;
@@ -61,15 +61,14 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
     public void onBindMeetingRowViewAtPosition(int position) {
         Meeting meeting = meetings.get(position);
         screen.setMeeting(meeting);
-        userDatabaseInteractor.getUserByUid(meeting.uid);
     }
 
     public int getMeetingRowsCount() {
         return meetings.size();
     }
 
-    public void setListener(ItemChangeListener listener) {
-        this.listener = listener;
+    public void setItemChangeListener(ItemChangeListener itemChangeListener) {
+        this.itemChangeListener = itemChangeListener;
     }
 
     public void signOut() {
@@ -84,7 +83,9 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
             meetings.add(meeting);
             keys.add(key);
 
-            listener.onItemChanged(meetings.size() - 1);
+            userDatabaseInteractor.getUserByUid(meeting.uid);
+
+            itemChangeListener.onItemChanged(meetings.size() - 1);
         }
     }
 
@@ -95,7 +96,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
             if (meetingIndex > -1) {
 
                 meetings.set(meetingIndex, meeting);
-                listener.onItemChanged(meetingIndex);
+                itemChangeListener.onItemChanged(meetingIndex);
             }
         }
 
@@ -110,18 +111,18 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
             keys.remove(meetingIndex);
             meetings.remove(meetingIndex);
 
-            listener.onItemChanged(meetingIndex);
+            itemChangeListener.onItemChanged(meetingIndex);
         }
     }
 
     @Override
     public void onUserFound(User user) {
         screen.setImage(user);
+        itemChangeListener.onItemChanged(meetings.size() - 1);
     }
 
     @Override
     public void onUserNotFound() {}
-
 
     public Meeting getMeeting(int position) {
         return meetings.get(position);
