@@ -38,6 +38,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    implementation 'com.firebaseui:firebase-ui:0.6.0'
 
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'

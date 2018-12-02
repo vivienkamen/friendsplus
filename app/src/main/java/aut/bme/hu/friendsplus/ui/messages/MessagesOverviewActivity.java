@@ -30,6 +30,7 @@ import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
 import aut.bme.hu.friendsplus.ui.meetings.MeetingsAdapter;
 import aut.bme.hu.friendsplus.ui.meetings.addMeeting.NewMeetingFragment;
 import aut.bme.hu.friendsplus.ui.messages.addMessage.NewMessageFragment;
+import aut.bme.hu.friendsplus.ui.messages.messageDetails.MessageDetailActivity;
 
 public class MessagesOverviewActivity extends BaseActivity implements ItemClickListener<User>,
         MessagingStartedListener, RecyclerItemTouchHelperListener {
@@ -111,8 +112,11 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
 
     @Override
     public void onItemClick(User user) {
-
+        Intent intent = new Intent(MessagesOverviewActivity.this, MessageDetailActivity.class);
+        intent.putExtra("User", user);
+        startActivity(intent);
     }
+
     @Override
     public void onStop() {
         super.onStop();

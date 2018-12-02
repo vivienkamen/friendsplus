@@ -135,5 +135,8 @@ public class MessageDatabaseInteractor {
         }
     }
 
+    public DatabaseReference getReference(String myUID, String friendUID) {
+        return mDatabase.child("messages").child(myUID).child(friendUID);
+    }
 
 }

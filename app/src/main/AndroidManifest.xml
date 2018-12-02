@@ -67,7 +67,8 @@
 
         <service android:name=".services.TrackingService" />
 
-        <activity android:name=".ui.messages.MessagesOverviewActivity"></activity>
+        <activity android:name=".ui.messages.MessagesOverviewActivity" />
+        <activity android:name=".ui.messages.messageDetails.MessageDetailActivity"></activity>
     </application>
 
 </manifest>
