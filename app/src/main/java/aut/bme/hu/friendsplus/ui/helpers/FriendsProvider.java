@@ -41,4 +41,8 @@ public class FriendsProvider implements FriendsListener {
         return false;
     }
 
+    public ArrayList<String> getFriendsList() {
+        return (ArrayList<String>) friends;
+    }
+
 }

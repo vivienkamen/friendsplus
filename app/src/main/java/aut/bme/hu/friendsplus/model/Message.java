@@ -13,14 +13,21 @@ import java.util.Map;
 public class Message implements Parcelable {
 
     public String text;
+    public String senderUID;
     public long time;
     public boolean unread;
 
 
-    public Message() {}
+    public Message() {
+        text = "";
+        senderUID = "";
+        time = 0;
+        unread = true;
+    }
 
-    public Message(String text) {
+    public Message(String text, String senderUID) {
         this.text = text;
+        this.senderUID = senderUID;
         time = System.currentTimeMillis();
         unread = true;
 
@@ -28,6 +35,7 @@ public class Message implements Parcelable {
 
     public Message(Parcel in) {
         text = in.readString();
+        senderUID = in.readString();
         time = in.readLong();
         unread = in.readInt() != 0;
     }
@@ -53,6 +61,7 @@ public class Message implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(text);
+        parcel.writeString(senderUID);
         parcel.writeLong(time);
         parcel.writeInt(unread ? 1 : 0);
     }
@@ -62,6 +71,7 @@ public class Message implements Parcelable {
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("text", text);
+        result.put("senderUID", senderUID);
         result.put("time", time);
         result.put("unread", unread);
 

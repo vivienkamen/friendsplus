@@ -14,6 +14,7 @@ import java.util.List;
 
 import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
+import aut.bme.hu.friendsplus.ui.listeners.LastMessageListener;
 import aut.bme.hu.friendsplus.ui.listeners.UnreadMessageListener;
 
 public class MessageDatabaseInteractor {
@@ -24,6 +25,7 @@ public class MessageDatabaseInteractor {
     private ChildEventListener friendsChildEventListener;
     private FriendsListener friendsListener;
     private UnreadMessageListener unreadMessageListener;
+    private LastMessageListener lastMessageListener;
 
     public MessageDatabaseInteractor() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -37,6 +39,10 @@ public class MessageDatabaseInteractor {
         this.unreadMessageListener = unreadMessageListener;
     }
 
+    public void setLastMessageListener(LastMessageListener lastMessageListener) {
+        this.lastMessageListener = lastMessageListener;
+    }
+
     public void addMessage(Message message, String myUID, String friendUID) {
 
         String key = mDatabase.child("messages").child(myUID).child(friendUID).push().getKey();
@@ -47,7 +53,7 @@ public class MessageDatabaseInteractor {
         mDatabase.child("messages").child(myUID).child(friendUID).removeValue();
     }
 
-    public void getUnreadMessagesCount(String myUID, String friendUID) {
+    public void getUnreadMessagesCount(String myUID, final String friendUID) {
 
         mDatabase.child("messages").child(myUID).child(friendUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -59,7 +65,27 @@ public class MessageDatabaseInteractor {
                         msgCount++;
                     }
                 }
-                unreadMessageListener.onCountFound(msgCount);
+                unreadMessageListener.onCountFound(msgCount, friendUID);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLastMessage(String myUID, final String friendUID) {
+        mDatabase.child("messages").child(myUID).child(friendUID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Message lastMessage = new Message();
+                for(DataSnapshot messageDataSnapshot : dataSnapshot.getChildren()) {
+                    Message message = messageDataSnapshot.getValue(Message.class);
+
+                    if(lastMessage.time < message.time) {
+                        lastMessage = message;
+                    }
+                }
+                lastMessageListener.onLastMessageFound(lastMessage, friendUID);
             }
 
             @Override
@@ -73,7 +99,7 @@ public class MessageDatabaseInteractor {
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
-                String uid = (String) dataSnapshot.getValue();
+                String uid = dataSnapshot.getKey();
                 friendsListener.onFriendAdded(uid);
             }
 
@@ -87,7 +113,7 @@ public class MessageDatabaseInteractor {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
 
-                String uid = (String) dataSnapshot.getValue();
+                String uid = dataSnapshot.getKey();
                 friendsListener.onFiendRemoved(uid);
             }
 

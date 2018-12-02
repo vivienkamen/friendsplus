@@ -39,38 +39,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="@dimen/padd_10">
+        android:paddingLeft="@dimen/padd_10">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/account_image"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:src="@drawable/account3"
+            android:layout_alignParentLeft="true"/>
+
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:text="name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/account_image"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/account_image"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"
-                android:src="@drawable/account3" />
-
-            <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewLastMessage"
+            android:text="message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padd_10"
+            android:layout_toRightOf="@id/account_image"
+            android:layout_below="@id/textViewName"
+            android:textSize="18sp"
+            android:textStyle="italic"/>
 
 
-            <TextView
-                android:id="@+id/textViewNewMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/fui_bgPhone"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textViewNewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fui_bgPhone"
+            android:layout_margin="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
     </RelativeLayout>
 </FrameLayout>

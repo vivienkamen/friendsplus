@@ -6,25 +6,25 @@ import java.util.List;
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
 import aut.bme.hu.friendsplus.interactor.database.MessageDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
-import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.Message;
+import aut.bme.hu.friendsplus.ui.helpers.MessageOverviewItem;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
+import aut.bme.hu.friendsplus.ui.listeners.LastMessageListener;
 import aut.bme.hu.friendsplus.ui.listeners.UnreadMessageListener;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
-import aut.bme.hu.friendsplus.ui.meetings.MeetingRowScreen;
 
 public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen> implements FriendsListener,
-        UsersListener, UnreadMessageListener {
+        UsersListener, UnreadMessageListener, LastMessageListener {
 
     private AuthInteractor authInteractor;
     private UserDatabaseInteractor userDatabaseInteractor;
     private MessageDatabaseInteractor messageDatabaseInteractor;
 
-    private ItemChangeListener listener;
-    private ArrayList<User> friends;
+    private ItemChangeListener itemChangeListener;
+    private ArrayList<MessageOverviewItem> friendItems;
     private String myUID;
 
 
@@ -37,8 +37,9 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
         userDatabaseInteractor.setUsersListener(this);
         messageDatabaseInteractor.setFriendsListener(this);
         messageDatabaseInteractor.setUnreadMessageListener(this);
+        messageDatabaseInteractor.setLastMessageListener(this);
 
-        friends = new ArrayList<>();
+        friendItems = new ArrayList<>();
         myUID = authInteractor.getCurrentUser().getUid();
 
         messageDatabaseInteractor.addFriendsChildEventListener(myUID);
@@ -56,25 +57,39 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
     }
 
     public void onBindMessageRowViewAtPosition(int position) {
-        User friend = friends.get(position);
-        screen.setFriend(friend);
+        MessageOverviewItem messageOverviewItem = friendItems.get(position);
+        screen.setFriend(messageOverviewItem.user);
+
+        String message = "";
+        if(messageOverviewItem.lastMessage.senderUID.equals(myUID)) {
+            message += "You: ";
+        }
+        screen.setLastMessage(message + messageOverviewItem.lastMessage.text);
+
+        if(messageOverviewItem.unreadMessageCount > 0) {
+            screen.setUnreadMessageTextView(messageOverviewItem.unreadMessageCount);
+        }
+
     }
 
     public int getMeetingRowsCount() {
-        return friends.size();
+        return friendItems.size();
     }
 
-    public void setListener(ItemChangeListener listener) {
-        this.listener = listener;
+    public void setItemChangeListener(ItemChangeListener itemChangeListener) {
+        this.itemChangeListener = itemChangeListener;
     }
 
     public void addFriendWithNewMessage(Message message, String friendUID) {
+        messageDatabaseInteractor.addMessage(message, friendUID, myUID);
+        message.unread = false;
         messageDatabaseInteractor.addMessage(message, myUID, friendUID);
+
     }
 
     public void removeMessagesFromFriend(int index) {
-        User friend = friends.get(index);
-        messageDatabaseInteractor.removeMessagesFromFriend(myUID, friend.uid);
+        MessageOverviewItem messageOverviewItem = friendItems.get(index);
+        messageDatabaseInteractor.removeMessagesFromFriend(myUID, messageOverviewItem.user.uid);
 
     }
 
@@ -93,24 +108,23 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
     public void onFriendAdded(String friendUID) {
         if(!containsFriend(friendUID)) {
             userDatabaseInteractor.getUserByUid(friendUID);
-            messageDatabaseInteractor.getUnreadMessagesCount(myUID,friendUID);
         }
     }
 
     @Override
     public void onFiendRemoved(String uid) {
-        User friend = getFriend(uid);
-        if(friend != null) {
-            int index = friends.indexOf(friend);
-            friends.remove(index);
-            listener.onItemChanged(index);
+        MessageOverviewItem item = getItem(uid);
+        if(item != null) {
+            int index = friendItems.indexOf(item);
+            friendItems.remove(index);
+            itemChangeListener.onItemChanged(index);
         }
 
     }
 
     public boolean containsFriend(String uid) {
-        for(User user : friends) {
-            if(user.uid.equals(uid)) {
+        for(MessageOverviewItem messageOverviewItem : friendItems) {
+            if(messageOverviewItem.user.uid.equals(uid)) {
                 return true;
             }
         }
@@ -119,24 +133,42 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
 
     @Override
     public void onUserFound(User user) {
-        friends.add(user);
-        listener.onItemChanged(friends.size() - 1);
+        MessageOverviewItem item = new MessageOverviewItem();
+        item.user = user;
+        friendItems.add(item);
+        messageDatabaseInteractor.getLastMessage(myUID, item.user.uid);
     }
 
     @Override
     public void onUserNotFound() {}
 
-    public User getFriend(String uid) {
-        for(User user : friends) {
-            if(user.uid.equals(uid)) {
-                return  user;
+    private MessageOverviewItem getItem(String uid) {
+        for(MessageOverviewItem item : friendItems) {
+            if(item.user.uid.equals(uid)) {
+                return  item;
             }
         }
         return null;
     }
 
     @Override
-    public void onCountFound(int newMessageCount) {
-        screen.setUnreadMessageTextView(newMessageCount);
+    public void onCountFound(int newMessageCount, String friendUID) {
+
+        MessageOverviewItem item = getItem(friendUID);
+        item.unreadMessageCount = newMessageCount;
+        int index = friendItems.indexOf(item);
+        friendItems.set(index, item);
+        itemChangeListener.onItemChanged(index);
+
     }
+
+    @Override
+    public void onLastMessageFound(Message message, String friendUID) {
+        MessageOverviewItem item = getItem(friendUID);
+        item.lastMessage = message;
+        int index = friendItems.indexOf(item);
+        friendItems.set(index, item);
+        messageDatabaseInteractor.getUnreadMessagesCount(myUID, friendUID);
+    }
+
 }

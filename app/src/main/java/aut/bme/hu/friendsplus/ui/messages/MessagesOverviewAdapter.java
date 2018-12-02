@@ -16,8 +16,6 @@ import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemClickListener;
-import aut.bme.hu.friendsplus.ui.meetings.MeetingRowScreen;
-import aut.bme.hu.friendsplus.ui.meetings.MeetingsAdapter;
 
 public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOverviewAdapter.MessageRowViewHolder>
         implements ItemChangeListener {
@@ -30,7 +28,7 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
     public MessagesOverviewAdapter(MessagesOverviewPresenter presenter, ItemClickListener listener) {
         this.presenter = presenter;
         this.listener = listener;
-        presenter.setListener(this);
+        presenter.setItemChangeListener(this);
     }
 
     @NonNull
@@ -55,9 +53,10 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
     @Override
     public void onItemChanged(int position) {
         notifyItemInserted(position);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
+    @Override
     public void refreshItems() {
         notifyDataSetChanged();
     }
@@ -65,6 +64,7 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
     public static class MessageRowViewHolder extends RecyclerView.ViewHolder implements MessagesOverviewScreen, View.OnClickListener {
 
         TextView nameTextView;
+        TextView lastMessageTextView;
         TextView unreadMessagesTextView;
         ImageView imageView;
         Context context;
@@ -80,10 +80,13 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
 
             context = itemView.getContext();
             nameTextView = (TextView) itemView.findViewById(R.id.textViewName);
+            lastMessageTextView = (TextView) itemView.findViewById(R.id.textViewLastMessage);
             unreadMessagesTextView = (TextView) itemView.findViewById(R.id.textViewNewMessage);
             imageView = (ImageView) itemView.findViewById(R.id.account_image);
             viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);
+
+            //clearFields();
         }
 
         @Override
@@ -107,6 +110,17 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
         @Override
         public void setUnreadMessageTextView(int unreadMessageCount) {
             unreadMessagesTextView.setText("● " + unreadMessageCount);
+        }
+
+        @Override
+        public void setLastMessage(String message) {
+            lastMessageTextView.setText(message);
+
+        }
+
+        private void clearFields() {
+            unreadMessagesTextView.setText("");
+            lastMessageTextView.setText("");
         }
     }
 }

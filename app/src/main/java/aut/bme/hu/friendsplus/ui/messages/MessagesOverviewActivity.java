@@ -17,6 +17,7 @@ import android.view.View;
 
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.Meeting;
+import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
@@ -28,6 +29,7 @@ import aut.bme.hu.friendsplus.ui.listeners.RecyclerItemTouchHelperListener;
 import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
 import aut.bme.hu.friendsplus.ui.meetings.MeetingsAdapter;
 import aut.bme.hu.friendsplus.ui.meetings.addMeeting.NewMeetingFragment;
+import aut.bme.hu.friendsplus.ui.messages.addMessage.NewMessageFragment;
 
 public class MessagesOverviewActivity extends BaseActivity implements ItemClickListener<User>,
         MessagingStartedListener, RecyclerItemTouchHelperListener {
@@ -56,11 +58,12 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
         presenter = new MessagesOverviewPresenter();
 
         initRecyclerView();
+        initItemTouchHelper();
         initDrawerLayout();
     }
 
     private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.meetingsRecyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.messagesOverviewRecyclerView);
         adapter = new MessagesOverviewAdapter(presenter, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -69,7 +72,7 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
 
     private void initItemTouchHelper() {
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this, RecyclerItemTouchHelper.MEETING_FLAG);
+                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this, RecyclerItemTouchHelper.MESSAGE_OVERVIEW_FLAG);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
@@ -92,7 +95,7 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
         switch (item.getItemId()) {
 
             case  R.id.AddItem:
-                //new NewMeetingFragment().show(getSupportFragmentManager(), NewMeetingFragment.TAG);
+                new NewMessageFragment().show(getSupportFragmentManager(), NewMessageFragment.TAG);
                 return true;
 
             case android.R.id.home:
@@ -131,8 +134,8 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
     }
 
     @Override
-    public void onMessagingStarted() {
-
+    public void onMessagingStarted(Message message, String friendUID) {
+        presenter.addFriendWithNewMessage(message, friendUID);
     }
 
     @Override

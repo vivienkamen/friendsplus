@@ -39,7 +39,7 @@ public class NavigationDrawer {
                         switch (menuItem.getItemId()) {
                             case R.id.account:
                                 Intent intentAccount = new Intent(activity, AccountActivity.class);
-                                intentAccount.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // || single top todo
+                                intentAccount.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 activity.startActivity(intentAccount);
                                 break;
                             case R.id.meetings:
