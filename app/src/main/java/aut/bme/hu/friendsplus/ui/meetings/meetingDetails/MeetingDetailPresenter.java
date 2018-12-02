@@ -77,7 +77,7 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     }
 
     public void getUserName() {
-        userDatabaseInteractor.getUserByUid(myUID);
+        userDatabaseInteractor.getUserByUid(meeting.uid);
     }
 
     @Override

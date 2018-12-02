@@ -48,12 +48,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendRo
 
     @Override
     public void onItemChanged(int position) {
+        notifyItemChanged(position);
+        notifyDataSetChanged();
+    }
 
+    @Override
+    public void onItemInserted(int position) {
         notifyItemInserted(position);
         notifyDataSetChanged();
     }
 
     @Override
+    public void onItemRemoved(int position) {
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
+
     public void refreshItems() {
         notifyDataSetChanged();
     }

@@ -52,11 +52,19 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
 
     @Override
     public void onItemChanged(int position) {
-        notifyItemInserted(position);
-        //notifyDataSetChanged();
+        notifyItemChanged(position);
     }
 
     @Override
+    public void onItemInserted(int position) {
+        notifyItemInserted(position);
+    }
+
+    @Override
+    public void onItemRemoved(int position) {
+        notifyItemRemoved(position);
+    }
+
     public void refreshItems() {
         notifyDataSetChanged();
     }
@@ -86,7 +94,6 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
             viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);
 
-            //clearFields();
         }
 
         @Override
@@ -118,9 +125,5 @@ public class MessagesOverviewAdapter extends RecyclerView.Adapter<MessagesOvervi
 
         }
 
-        private void clearFields() {
-            unreadMessagesTextView.setText("");
-            lastMessageTextView.setText("");
-        }
     }
 }

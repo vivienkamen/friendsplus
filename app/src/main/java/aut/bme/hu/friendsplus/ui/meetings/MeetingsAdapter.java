@@ -59,11 +59,21 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
 
     @Override
     public void onItemChanged(int position) {
-        notifyItemInserted(position);
-        notifyDataSetChanged();
+        notifyItemChanged(position);
+
     }
 
     @Override
+    public void onItemInserted(int position) {
+        notifyItemInserted(position);
+    }
+
+    @Override
+    public void onItemRemoved(int position) {
+        notifyItemRemoved(position);
+    }
+
+
     public void refreshItems() {
         notifyDataSetChanged();
     }
@@ -130,10 +140,10 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
         }
 
         @Override
-        public void setImage(User user) {
+        public void setImage(String imageUri) {
 
-            if(user.imageUri != null) {
-                Glide.with(context).load(user.imageUri).into(imageView);
+            if(imageUri != null) {
+                Glide.with(context).load(imageUri).into(imageView);
             }
         }
 

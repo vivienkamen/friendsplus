@@ -82,7 +82,7 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
 
             friends.remove(friendIndex);
 
-            itemChangeListener.onItemChanged(friendIndex);
+            itemChangeListener.onItemRemoved(friendIndex);
         }
     }
 
@@ -90,7 +90,7 @@ public class FriendsPresenter extends Presenter<FriendRowScreen> implements Frie
     @Override
     public void onUserFound(User user) {
         friends.add(user);
-        itemChangeListener.onItemChanged(friends.size() - 1);
+        itemChangeListener.onItemInserted(friends.size() - 1);
     }
 
     @Override

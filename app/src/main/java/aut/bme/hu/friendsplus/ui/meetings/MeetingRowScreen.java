@@ -5,5 +5,5 @@ import aut.bme.hu.friendsplus.model.User;
 
 public interface MeetingRowScreen {
     void setMeeting(Meeting meeting);
-    void setImage(User user);
+    void setImage(String imageUri);
 }

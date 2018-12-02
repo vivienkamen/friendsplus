@@ -13,9 +13,10 @@ import aut.bme.hu.friendsplus.ui.helpers.FriendsProvider;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsReadyListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
 import aut.bme.hu.friendsplus.ui.listeners.MeetingsListener;
+import aut.bme.hu.friendsplus.ui.listeners.UserListListener;
 import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
 
-public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements UsersListener, MeetingsListener, FriendsReadyListener {
+public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements UserListListener, MeetingsListener, FriendsReadyListener {
 
     private MeetingsDatabaseInteractor meetingsDatabaseInteractor;
     private UserDatabaseInteractor userDatabaseInteractor;
@@ -25,6 +26,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
 
     private List<Meeting> meetings;
     private List<String> keys;
+    private List<User> users;
     private FriendsProvider friendsProvider;
 
     public MeetingsPresenter() {
@@ -36,15 +38,22 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
         authInteractor = new AuthInteractor();
 
         meetingsDatabaseInteractor.setMeetingsListener(this);
-        userDatabaseInteractor.setUsersListener(this);
+        userDatabaseInteractor.setUserListListener(this);
 
         meetings = new ArrayList<>();
         keys = new ArrayList<>();
+        users = new ArrayList<>();
 
     }
 
     @Override
     public void onFriendsReady() {
+        userDatabaseInteractor.getUsers(friendsProvider.getFriendsList());
+    }
+
+    @Override
+    public void onUserListReady(List<User> users) {
+        this.users = users;
         meetingsDatabaseInteractor.addMeetingsListener();
     }
 
@@ -61,6 +70,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
     public void onBindMeetingRowViewAtPosition(int position) {
         Meeting meeting = meetings.get(position);
         screen.setMeeting(meeting);
+        screen.setImage(getUserFromUID(meeting.uid).imageUri);
     }
 
     public int getMeetingRowsCount() {
@@ -69,6 +79,16 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
 
     public void setItemChangeListener(ItemChangeListener itemChangeListener) {
         this.itemChangeListener = itemChangeListener;
+    }
+
+    private User getUserFromUID(String uid) {
+        User user1 = new User();
+        for(User user2 : users) {
+            if(user2.uid.equals(uid)) {
+                user1 = user2;
+            }
+        }
+        return user1;
     }
 
     public void signOut() {
@@ -83,9 +103,7 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
             meetings.add(meeting);
             keys.add(key);
 
-            userDatabaseInteractor.getUserByUid(meeting.uid);
-
-            itemChangeListener.onItemChanged(meetings.size() - 1);
+            itemChangeListener.onItemInserted(meetings.size() - 1);
         }
     }
 
@@ -111,18 +129,9 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
             keys.remove(meetingIndex);
             meetings.remove(meetingIndex);
 
-            itemChangeListener.onItemChanged(meetingIndex);
+            itemChangeListener.onItemRemoved(meetingIndex);
         }
     }
-
-    @Override
-    public void onUserFound(User user) {
-        screen.setImage(user);
-        itemChangeListener.onItemChanged(meetings.size() - 1);
-    }
-
-    @Override
-    public void onUserNotFound() {}
 
     public Meeting getMeeting(int position) {
         return meetings.get(position);
@@ -146,5 +155,6 @@ public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements Us
     public void cleanupListener() {
         meetingsDatabaseInteractor.cleanupListener();
     }
+
 
 }
