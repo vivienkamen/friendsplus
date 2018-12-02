@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;
@@ -92,6 +93,11 @@ public class MessageDatabaseInteractor {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    public void updateDatabase(Map<String, Object> childUpdates) {
+
+        mDatabase.updateChildren(childUpdates);
     }
 
     public void addFriendsChildEventListener(String myUID) {

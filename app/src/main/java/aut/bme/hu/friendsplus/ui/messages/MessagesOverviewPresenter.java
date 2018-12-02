@@ -106,9 +106,7 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
 
     @Override
     public void onFriendAdded(String friendUID) {
-        if(!containsFriend(friendUID)) {
-            userDatabaseInteractor.getUserByUid(friendUID);
-        }
+        userDatabaseInteractor.getUserByUid(friendUID);
     }
 
     @Override
@@ -133,10 +131,13 @@ public class MessagesOverviewPresenter extends Presenter<MessagesOverviewScreen>
 
     @Override
     public void onUserFound(User user) {
-        MessageOverviewItem item = new MessageOverviewItem();
-        item.user = user;
-        friendItems.add(item);
-        messageDatabaseInteractor.getLastMessage(myUID, item.user.uid);
+
+        if(!containsFriend(user.uid)) {
+            MessageOverviewItem item = new MessageOverviewItem();
+            item.user = user;
+            friendItems.add(item);
+        }
+        messageDatabaseInteractor.getLastMessage(myUID, user.uid);
     }
 
     @Override

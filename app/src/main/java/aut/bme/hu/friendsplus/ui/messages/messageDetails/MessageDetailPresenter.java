@@ -4,6 +4,9 @@ import android.view.View;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
 import aut.bme.hu.friendsplus.interactor.database.MessageDatabaseInteractor;
@@ -43,10 +46,14 @@ public class MessageDetailPresenter extends Presenter<MessageDetailScreen> {
                 R.layout.item_message, messageDatabaseInteractor.getReference(myUID, friend.uid)) {
             @Override
             protected void populateView(View view, Message message, int position) {
+
                 if(message.senderUID.equals(myUID)) {
                     screen.setMyMessageLayout(view, message.text);
                 } else {
                     screen.setFriendMessageLayout(view, message.text);
+                }
+                if(message.unread) {
+                    updateUnreadMessage(message);
                 }
             }
         };
@@ -55,9 +62,7 @@ public class MessageDetailPresenter extends Presenter<MessageDetailScreen> {
     }
 
     public void sendMessage(String messageText) {
-        Message message = new Message();
-        message.text = messageText;
-        message.senderUID = myUID;
+        Message message = new Message(messageText, myUID);
 
         messageDatabaseInteractor.addMessage(message, friend.uid, myUID);
         message.unread = false;
@@ -66,5 +71,15 @@ public class MessageDetailPresenter extends Presenter<MessageDetailScreen> {
 
     public User getFriend() {
         return friend;
+    }
+
+    public void updateUnreadMessage(Message message) {
+        message.unread = false;
+        Map<String, Object> messageValues = message.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/messages/" + myUID + "/" + friend.uid + "/" + message.key, messageValues);
+
+        messageDatabaseInteractor.updateDatabase(childUpdates);
     }
 }
