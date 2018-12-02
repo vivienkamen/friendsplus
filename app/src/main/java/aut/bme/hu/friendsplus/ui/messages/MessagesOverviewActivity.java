@@ -124,12 +124,6 @@ public class MessagesOverviewActivity extends BaseActivity implements ItemClickL
         presenter.cleanupListener();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.refreshItems();
-    }
-
     public void signOut() {
         presenter.signOut();
         Intent intent = new Intent(MessagesOverviewActivity.this, AuthPickerActivity.class);

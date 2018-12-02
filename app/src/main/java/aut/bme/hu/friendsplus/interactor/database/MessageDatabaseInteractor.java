@@ -46,6 +46,7 @@ public class MessageDatabaseInteractor {
     public void addMessage(Message message, String myUID, String friendUID) {
 
         String key = mDatabase.child("messages").child(myUID).child(friendUID).push().getKey();
+        message.key = key;
         mDatabase.child("messages").child(myUID).child(friendUID).child(key).setValue(message);
     }
 

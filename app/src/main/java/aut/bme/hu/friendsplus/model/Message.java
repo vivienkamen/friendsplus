@@ -16,6 +16,7 @@ public class Message implements Parcelable {
     public String senderUID;
     public long time;
     public boolean unread;
+    public String key;
 
 
     public Message() {
@@ -23,6 +24,7 @@ public class Message implements Parcelable {
         senderUID = "";
         time = 0;
         unread = true;
+        key = "";
     }
 
     public Message(String text, String senderUID) {
@@ -30,6 +32,7 @@ public class Message implements Parcelable {
         this.senderUID = senderUID;
         time = System.currentTimeMillis();
         unread = true;
+        key = "";
 
     }
 
@@ -38,6 +41,7 @@ public class Message implements Parcelable {
         senderUID = in.readString();
         time = in.readLong();
         unread = in.readInt() != 0;
+        key = in.readString();
     }
 
     public static final Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
@@ -64,6 +68,7 @@ public class Message implements Parcelable {
         parcel.writeString(senderUID);
         parcel.writeLong(time);
         parcel.writeInt(unread ? 1 : 0);
+        parcel.writeString(key);
     }
 
     @Exclude
@@ -74,6 +79,7 @@ public class Message implements Parcelable {
         result.put("senderUID", senderUID);
         result.put("time", time);
         result.put("unread", unread);
+        result.put("key", key);
 
         return result;
     }
