@@ -7,7 +7,7 @@ import aut.bme.hu.friendsplus.interactor.auth.AuthInteractor;
 import aut.bme.hu.friendsplus.interactor.database.MessageDatabaseInteractor;
 import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.model.Message;
-import aut.bme.hu.friendsplus.ui.helpers.MessageOverviewItem;
+import aut.bme.hu.friendsplus.util.MessageOverviewItem;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsListener;

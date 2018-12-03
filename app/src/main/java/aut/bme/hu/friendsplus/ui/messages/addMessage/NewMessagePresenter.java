@@ -8,10 +8,9 @@ import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
-import aut.bme.hu.friendsplus.ui.helpers.FriendsProvider;
+import aut.bme.hu.friendsplus.util.FriendsProvider;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsReadyListener;
 import aut.bme.hu.friendsplus.ui.listeners.UserListListener;
-import aut.bme.hu.friendsplus.ui.meetings.addMeeting.NewMeetingScreen;
 
 public class NewMessagePresenter extends Presenter<NewMessageScreen> implements UserListListener, FriendsReadyListener {
 

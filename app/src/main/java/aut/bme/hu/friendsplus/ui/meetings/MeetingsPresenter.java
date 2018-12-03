@@ -9,12 +9,11 @@ import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
-import aut.bme.hu.friendsplus.ui.helpers.FriendsProvider;
+import aut.bme.hu.friendsplus.util.FriendsProvider;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsReadyListener;
 import aut.bme.hu.friendsplus.ui.listeners.ItemChangeListener;
 import aut.bme.hu.friendsplus.ui.listeners.MeetingsListener;
 import aut.bme.hu.friendsplus.ui.listeners.UserListListener;
-import aut.bme.hu.friendsplus.ui.listeners.UsersListener;
 
 public class MeetingsPresenter extends Presenter<MeetingRowScreen> implements UserListListener, MeetingsListener, FriendsReadyListener {
 

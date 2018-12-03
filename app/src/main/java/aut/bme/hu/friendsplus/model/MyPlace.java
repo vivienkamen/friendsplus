@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-
 public class MyPlace implements Parcelable {
 
     public String id;

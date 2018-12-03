@@ -19,8 +19,8 @@ import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.friends.addFriend.NewFriendFragment;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
-import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
-import aut.bme.hu.friendsplus.ui.helpers.RecyclerItemTouchHelper;
+import aut.bme.hu.friendsplus.util.NavigationDrawer;
+import aut.bme.hu.friendsplus.util.RecyclerItemTouchHelper;
 import aut.bme.hu.friendsplus.ui.listeners.NewFriendListener;
 import aut.bme.hu.friendsplus.ui.listeners.RecyclerItemTouchHelperListener;
 

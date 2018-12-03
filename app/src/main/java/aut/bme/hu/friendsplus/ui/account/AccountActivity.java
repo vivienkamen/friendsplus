@@ -33,8 +33,8 @@ import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
-import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
-import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
+import aut.bme.hu.friendsplus.util.NavigationDrawer;
+import aut.bme.hu.friendsplus.util.PermissionChecker;
 
 public class AccountActivity extends BaseActivity implements AccountScreen {
 

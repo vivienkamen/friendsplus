@@ -21,7 +21,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.MyPlace;
-import aut.bme.hu.friendsplus.ui.helpers.PickerDialogs;
+import aut.bme.hu.friendsplus.util.PickerDialogs;
 import aut.bme.hu.friendsplus.ui.listeners.NewMeetingListener;
 import aut.bme.hu.friendsplus.ui.listeners.PickerDialogListener;
 

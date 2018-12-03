@@ -20,7 +20,7 @@ import aut.bme.hu.friendsplus.BuildConfig;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
-import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
+import aut.bme.hu.friendsplus.util.PermissionChecker;
 import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
 
 public class FacebookLoginActivity extends BaseActivity implements FacebookLoginScreen{

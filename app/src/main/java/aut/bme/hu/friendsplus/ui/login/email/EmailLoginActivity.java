@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import aut.bme.hu.friendsplus.BuildConfig;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
-import aut.bme.hu.friendsplus.ui.helpers.PermissionChecker;
+import aut.bme.hu.friendsplus.util.PermissionChecker;
 import aut.bme.hu.friendsplus.ui.login.LoginScreen;
 import aut.bme.hu.friendsplus.ui.meetings.MeetingsActivity;
 import aut.bme.hu.friendsplus.ui.signup.SignUpActivity;

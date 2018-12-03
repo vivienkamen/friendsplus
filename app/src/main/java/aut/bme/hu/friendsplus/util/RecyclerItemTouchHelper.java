@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.helpers;
+package aut.bme.hu.friendsplus.util;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;

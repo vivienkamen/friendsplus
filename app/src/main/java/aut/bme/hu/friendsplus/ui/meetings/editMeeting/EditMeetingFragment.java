@@ -25,7 +25,7 @@ import java.util.Date;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.MyPlace;
-import aut.bme.hu.friendsplus.ui.helpers.PickerDialogs;
+import aut.bme.hu.friendsplus.util.PickerDialogs;
 import aut.bme.hu.friendsplus.ui.listeners.EditMeetingListener;
 import aut.bme.hu.friendsplus.ui.listeners.PickerDialogListener;
 

@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.helpers;
+package aut.bme.hu.friendsplus.util;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;

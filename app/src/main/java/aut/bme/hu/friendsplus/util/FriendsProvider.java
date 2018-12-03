@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.helpers;
+package aut.bme.hu.friendsplus.util;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package aut.bme.hu.friendsplus.ui.helpers;
+package aut.bme.hu.friendsplus.util;
 
 import aut.bme.hu.friendsplus.model.Message;
 import aut.bme.hu.friendsplus.model.User;

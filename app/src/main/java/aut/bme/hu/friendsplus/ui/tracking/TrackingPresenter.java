@@ -18,7 +18,7 @@ import aut.bme.hu.friendsplus.model.Meeting;
 import aut.bme.hu.friendsplus.model.MyLocation;
 import aut.bme.hu.friendsplus.model.User;
 import aut.bme.hu.friendsplus.ui.Presenter;
-import aut.bme.hu.friendsplus.ui.helpers.FriendsProvider;
+import aut.bme.hu.friendsplus.util.FriendsProvider;
 import aut.bme.hu.friendsplus.ui.listeners.FriendsReadyListener;
 import aut.bme.hu.friendsplus.ui.listeners.LocationListener;
 import aut.bme.hu.friendsplus.ui.listeners.TrackedMeetingsListener;

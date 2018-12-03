@@ -1,10 +1,9 @@
-package aut.bme.hu.friendsplus.ui.helpers;
+package aut.bme.hu.friendsplus.util;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -14,11 +13,9 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.util.Calendar;
 
-import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.ui.listeners.PickerDialogListener;
 
 public class PickerDialogs {

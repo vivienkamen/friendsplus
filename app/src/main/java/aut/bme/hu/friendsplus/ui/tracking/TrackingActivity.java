@@ -30,7 +30,7 @@ import aut.bme.hu.friendsplus.services.TrackingService;
 import aut.bme.hu.friendsplus.ui.BaseActivity;
 import aut.bme.hu.friendsplus.R;
 import aut.bme.hu.friendsplus.ui.authpicker.AuthPickerActivity;
-import aut.bme.hu.friendsplus.ui.helpers.NavigationDrawer;
+import aut.bme.hu.friendsplus.util.NavigationDrawer;
 import aut.bme.hu.friendsplus.ui.meetings.meetingDetails.MeetingDetailActivity;
 
 public class TrackingActivity extends BaseActivity implements TrackingScreen, OnMapReadyCallback {
