@@ -5,15 +5,13 @@ import aut.bme.hu.friendsplus.interactor.database.UserDatabaseInteractor;
 import aut.bme.hu.friendsplus.ui.Presenter;
 import aut.bme.hu.friendsplus.ui.listeners.AuthListener;
 
-public class AuthPickerPresenter extends Presenter<AuthPickerScreen> implements AuthListener {
+public class AuthPickerPresenter extends Presenter<AuthPickerScreen> {
 
     AuthInteractor authInteractor;
-    UserDatabaseInteractor userDatabaseInteractor;
 
     public AuthPickerPresenter() {
         authInteractor = new AuthInteractor();
-        userDatabaseInteractor = new UserDatabaseInteractor();
-        authInteractor.setAuthListener(this);
+
     }
 
     @Override
@@ -39,17 +37,5 @@ public class AuthPickerPresenter extends Presenter<AuthPickerScreen> implements 
     }
 
     public void emailLogin() {screen.navigateToEmailLogin();}
-
-    @Override
-    public void onSuccess(String message) {
-        userDatabaseInteractor.writeNewUser(message, " ", authInteractor.getCurrentUser().getEmail());
-        screen.showSuccessfulLogin();
-        screen.navigateToMain();
-    }
-
-    @Override
-    public void onFailure(String message) {
-        screen.showLoginFailure(message);
-    }
 
 }

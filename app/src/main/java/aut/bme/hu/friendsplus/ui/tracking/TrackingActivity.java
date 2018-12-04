@@ -118,7 +118,7 @@ public class TrackingActivity extends BaseActivity implements TrackingScreen, On
 
                         Intent serviceIntent = new Intent(TrackingActivity.this, TrackingService.class);
                         startService(serviceIntent);
-
+                        presenter.startTracking();
                         setDoneButton();
                     }
                 }

@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="25dp"
+                android:layout_margin="60dp"
                 android:src="@drawable/baseline_people_outline_black_36dp"/>
 
             <LinearLayout
@@ -39,7 +39,7 @@
                     android:fontFamily="@string/main_font"
                     android:hint="@string/first_name"
                     android:paddingBottom="15dp"
-                    android:textColorHint="@color/colorAccent" />
+                    android:textColorHint="@color/colorPrimaryDark" />
 
                 <EditText
                     android:id="@+id/editTextLastName"
@@ -49,7 +49,7 @@
                     android:fontFamily="@string/main_font"
                     android:hint="@string/last_name"
                     android:paddingBottom="15dp"
-                    android:textColorHint="@color/colorAccent" />
+                    android:textColorHint="@color/colorPrimaryDark" />
             </LinearLayout>
 
             <EditText
@@ -60,7 +60,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="15dp"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorPrimaryDark" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -71,7 +71,7 @@
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
                 android:layout_marginBottom="30dp"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/buttonSignUp"

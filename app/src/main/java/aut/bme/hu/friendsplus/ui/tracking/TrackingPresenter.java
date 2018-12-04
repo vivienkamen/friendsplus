@@ -130,6 +130,11 @@ public class TrackingPresenter extends Presenter<TrackingScreen> implements Loca
         userDatabaseInteractor.getUserByUid(dataSnapshot.getKey());
 
     }
+    public void startTracking() {
+        meeting.tracked = true;
+        meeting.addFriend(myUID);
+        updateMeetingDatabase();
+    }
 
     public void setArrival() {
         meeting.friendArrived(myUID);

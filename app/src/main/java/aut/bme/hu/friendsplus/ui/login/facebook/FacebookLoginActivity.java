@@ -112,11 +112,13 @@ public class FacebookLoginActivity extends BaseActivity implements FacebookLogin
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
+                navigateBack();
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
+                navigateBack();
             }
         });
         loginButton.performClick();

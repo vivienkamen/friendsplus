@@ -66,8 +66,6 @@ public class SignUpActivity extends BaseActivity implements SignUpScreen, View.O
     @Override
     public void navigateToLogin() {
         Intent intent = new Intent(SignUpActivity.this, EmailLoginActivity.class);
-        //TODO
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
 

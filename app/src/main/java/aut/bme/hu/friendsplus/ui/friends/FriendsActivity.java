@@ -67,7 +67,7 @@ public class FriendsActivity extends BaseActivity implements NewFriendListener,
 
     private void initItemTouchHelper() {
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this, RecyclerItemTouchHelper.MEETING_FLAG);
+                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this, RecyclerItemTouchHelper.FRIENDS_FLAG);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
