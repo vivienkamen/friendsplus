@@ -42,7 +42,7 @@
             android:layout_height="30dp"
             app:civ_border_width="1dp"
             app:civ_border_color="#FF000000"
-            android:src="@drawable/account3"/>
+            android:src="@drawable/account_placeholder"/>
 
         <TextView
             android:id="@+id/textViewName"
