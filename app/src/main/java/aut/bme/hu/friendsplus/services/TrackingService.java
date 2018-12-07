@@ -78,8 +78,7 @@ public class TrackingService extends Service {
 
         locationDatabaseInteractor = new LocationDatabaseInteractor();
 
-        //TODO
-        /*try {
+        try {
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[1]);
@@ -87,7 +86,7 @@ public class TrackingService extends Service {
             Log.i(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "network provider does not exist, " + ex.getMessage());
-        }*/
+        }
 
         try {
             mLocationManager.requestLocationUpdates(
