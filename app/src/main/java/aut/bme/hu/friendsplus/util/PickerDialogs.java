@@ -20,8 +20,6 @@ import aut.bme.hu.friendsplus.ui.listeners.PickerDialogListener;
 
 public class PickerDialogs {
 
-    private static final int PLACE_PICKER_REQUEST = 1;
-
     public static void showTimePickerDialog(final FragmentActivity activity, final PickerDialogListener listener, final Calendar meetingDate) {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -30,7 +28,7 @@ public class PickerDialogs {
         TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hh, int mm) {
-                if(PickerDialogs.validateTime(hh, mm, meetingDate)) {
+                if(Validator.validateTime(hh, mm, meetingDate)) {
                     listener.onTimeSet(hh, mm);
                 } else {
                     listener.onInvalidTime();
@@ -51,7 +49,7 @@ public class PickerDialogs {
         DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                if(PickerDialogs.validateDate(year,monthOfYear,dayOfMonth)) {
+                if(Validator.validateDate(year,monthOfYear,dayOfMonth)) {
                     listener.onDateSet(year, monthOfYear, dayOfMonth);
                 } else {
                     listener.onInvalidDate();
@@ -82,25 +80,7 @@ public class PickerDialogs {
         return null;
     }
 
-    private static boolean validateDate(int year, int monthOfYear, int dayOfMonth) {
 
-        Calendar today = Calendar.getInstance();
-
-        Calendar meetingDate = Calendar.getInstance();
-        meetingDate.set(year, monthOfYear, dayOfMonth);
-
-        return meetingDate.after(today);
-    }
-
-    private static boolean validateTime(int hour, int minute, Calendar meetingDate) {
-        Calendar today = Calendar.getInstance();
-
-        meetingDate.set(Calendar.HOUR_OF_DAY, hour);
-        meetingDate.set(Calendar.MINUTE, minute);
-
-        return meetingDate.after(today);
-
-    }
 
 
 }
