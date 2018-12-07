@@ -46,14 +46,13 @@ public class MessageDetailPresenter extends Presenter<MessageDetailScreen> {
                 R.layout.item_message, messageDatabaseInteractor.getReference(myUID, friend.uid)) {
             @Override
             protected void populateView(View view, Message message, int position) {
-
+                if(message.unread) {
+                    updateUnreadMessage(message);
+                }
                 if(message.senderUID.equals(myUID)) {
                     screen.setMyMessageLayout(view, message.text);
                 } else {
                     screen.setFriendMessageLayout(view, message.text);
-                }
-                if(message.unread) {
-                    updateUnreadMessage(message);
                 }
             }
         };

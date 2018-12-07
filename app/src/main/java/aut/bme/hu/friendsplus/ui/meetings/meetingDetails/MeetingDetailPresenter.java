@@ -87,9 +87,7 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     }
 
     @Override
-    public void onUserNotFound() {
-
-    }
+    public void onUserNotFound() {}
 
     public void setStartButton() {
         if(meeting.finished) {

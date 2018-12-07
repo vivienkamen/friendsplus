@@ -194,7 +194,7 @@ public class AccountActivity extends BaseActivity implements AccountScreen {
         if(currentUser.imageUri != null || updatedUser.imageUri != null) {
             Glide.with(this).load(currentUser.imageUri).into(imageView);
         } else {
-            imageView.setImageDrawable(getResources().getDrawable(R.drawable.account3));
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.account_placeholder));
         }
         updateButtonState();
 
