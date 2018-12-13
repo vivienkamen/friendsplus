@@ -5,6 +5,4 @@ public interface AuthPickerScreen {
     void navigateToMain();
     void navigateToFacebookLogin();
     void navigateToGoogleLogin();
-    void showSuccessfulLogin();
-    void showLoginFailure(String message);
 }

@@ -77,17 +77,6 @@ public class AuthPickerActivity extends BaseActivity implements AuthPickerScreen
     }
 
     @Override
-    public void showSuccessfulLogin() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showLoginFailure(String message) {
-        progressBar.setVisibility(View.GONE);
-        showToast(message);
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.email_button:
