@@ -53,6 +53,7 @@ public class TrackingActivity extends BaseActivity implements TrackingScreen, On
         setContentView(R.layout.activity_tracking);
 
         presenter = new TrackingPresenter();
+        presenter.init();
         presenter.attachScreen(this);
 
         initUI();

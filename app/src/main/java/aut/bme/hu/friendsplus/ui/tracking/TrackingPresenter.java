@@ -30,7 +30,7 @@ public class TrackingPresenter extends Presenter<TrackingScreen> implements Loca
     private static final String TAG = "TrackingPresenter";
 
     Meeting meeting;
-    String myUID;
+    public String myUID;
     LatLng placeLocation;
     private HashMap<String, Marker> markers;
     AuthInteractor authInteractor;
@@ -39,7 +39,7 @@ public class TrackingPresenter extends Presenter<TrackingScreen> implements Loca
     UserDatabaseInteractor userDatabaseInteractor;
     FriendsProvider friends;
 
-    public TrackingPresenter() {
+    public void init() {
         authInteractor = new AuthInteractor();
         locationDatabaseInteractor = new LocationDatabaseInteractor();
         meetingsDatabaseInteractor = new MeetingsDatabaseInteractor();
@@ -83,10 +83,14 @@ public class TrackingPresenter extends Presenter<TrackingScreen> implements Loca
             }
             screen.setTrackingUI(meeting);
             screen.addMeetingMarker(meeting);
-            locationDatabaseInteractor.addChildEventListener();
+            if(locationDatabaseInteractor != null) {
+                locationDatabaseInteractor.addChildEventListener();
+            }
 
         } else {
-            meetingsDatabaseInteractor.getTrackedMeetings();
+            if(meetingsDatabaseInteractor != null) {
+                meetingsDatabaseInteractor.getTrackedMeetings();
+            }
         }
     }
 
