@@ -27,6 +27,7 @@ public class AuthPickerActivity extends BaseActivity implements AuthPickerScreen
         setContentView(R.layout.activity_auth_picker);
 
         presenter = new AuthPickerPresenter();
+        presenter.init();
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 

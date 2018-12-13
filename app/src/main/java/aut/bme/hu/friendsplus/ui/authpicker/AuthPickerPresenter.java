@@ -9,9 +9,8 @@ public class AuthPickerPresenter extends Presenter<AuthPickerScreen> {
 
     AuthInteractor authInteractor;
 
-    public AuthPickerPresenter() {
+    public void init() {
         authInteractor = new AuthInteractor();
-
     }
 
     @Override
