@@ -28,7 +28,8 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
     private String meetingCreator;
     private boolean myTrackingStarted;
 
-    public MeetingDetailPresenter(Meeting meeting) {
+
+    public void init() {
         authInteractor = new AuthInteractor();
         meetingsDatabaseInteractor = new MeetingsDatabaseInteractor();
         userDatabaseInteractor = new UserDatabaseInteractor();
@@ -37,14 +38,18 @@ public class MeetingDetailPresenter extends Presenter<MeetingDetailScreen> imple
         userDatabaseInteractor.setUsersListener(this);
         userDatabaseInteractor.setUserListListener(this);
 
-        this.meeting = meeting;
         myUID = authInteractor.getCurrentUser().getUid();
         myTrackingStarted = false;
         users = new ArrayList<>();
+        meetingsDatabaseInteractor.checkMyTrackingStarted(myUID);
+    }
+
+    public void setMeeting(Meeting meeting) {
+
+        this.meeting = meeting;
 
         if(meeting.position < 0) throw new RuntimeException("Érvénytelen pozíció!");
 
-        meetingsDatabaseInteractor.checkMyTrackingStarted(myUID);
         userDatabaseInteractor.getUsers(meeting.getArrivedFriends());
     }
 

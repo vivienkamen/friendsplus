@@ -66,7 +66,9 @@ public class MeetingDetailActivity extends BaseActivity implements MeetingDetail
         setContentView(R.layout.activity_meeting_detail);
 
         Meeting meeting = (Meeting) getIntent().getParcelableExtra("Meeting");
-        presenter = new MeetingDetailPresenter(meeting);
+        presenter = new MeetingDetailPresenter();
+        presenter.init();
+        presenter.setMeeting(meeting);
 
         initUI();
         initDrawerLayout();
